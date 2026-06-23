@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Boledu Coffee — Ethiopian Specialty Coffee, Washing Station to Roastery</title>
+<meta name="description" content="Boledu Coffee operates washing stations in Yirgacheffe and Guji, exporting fully traceable, organically certified Ethiopian specialty coffee direct to international roasters." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Hanken+Grotesque:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --forest:#14512F;
+    --forest-deep:#0E3D24;
+    --leaf:#4BA56B;
+    --leaf-bright:#5FBF82;
+    --coffee:#5A3320;
+    --coffee-light:#7A4A2E;
+    --parchment:#F4EFE4;
+    --parchment-deep:#E9E0CC;
+    --bone:#FBF8F1;
+    --ink:#1B1611;
+    --ink-soft:#4A4137;
+    --line:rgba(27,22,17,.12);
+    --line-light:rgba(255,255,255,.16);
+
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Hanken Grotesque",system-ui,-apple-system,sans-serif;
+    --mono:"Spline Sans Mono",ui-monospace,monospace;
+
+    --maxw:1240px;
+    --pad:clamp(20px,5vw,72px);
+    --r:18px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  body{
+    font-family:var(--sans);
+    background:var(--parchment);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--leaf);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+
+  /* ---------- type ---------- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:.6em;
+    opacity:.85;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.6}
+
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.02;letter-spacing:-.01em}
+  h2{font-size:clamp(2.1rem,5.4vw,4rem)}
+  h3{font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.1}
+  .lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--ink-soft);max-width:62ch}
+
+  .section-head{max-width:760px;margin-bottom:clamp(40px,5vw,68px)}
+  .section-head h2{margin:.35em 0 .5em}
+  .on-dark .section-head .lead{color:rgba(255,255,255,.7)}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.6em;
+    font-family:var(--sans);font-weight:600;font-size:.95rem;
+    padding:.92em 1.5em;border-radius:100px;border:1px solid transparent;
+    cursor:pointer;transition:transform .25s,background .25s,color .25s,border-color .25s;
+    line-height:1;
+  }
+  .btn .arrow{transition:transform .3s}
+  .btn:hover .arrow{transform:translate(3px,-3px)}
+  .btn-leaf{background:var(--leaf);color:#fff}
+  .btn-leaf:hover{background:var(--leaf-bright);transform:translateY(-2px)}
+  .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+  .btn-ink{border-color:var(--ink);color:var(--ink)}
+  .btn-ink:hover{background:var(--ink);color:var(--parchment);transform:translateY(-2px)}
+
+  /* ---------- logo ---------- */
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo svg{display:block;height:46px;width:auto}
+  .logo .lockup{font-family:var(--serif);font-weight:600;font-size:1.15rem;line-height:1;letter-spacing:.01em}
+  .logo .lockup small{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.3em;font-weight:400;opacity:.7;margin-top:3px}
+
+  /* ---------- marquee (signature) ---------- */
+  .marquee{
+    background:var(--forest-deep);color:rgba(255,255,255,.92);
+    border-block:1px solid var(--line-light);
+    overflow:hidden;white-space:nowrap;
+    padding-block:.85em;font-family:var(--mono);
+    font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
+  }
+  .marquee-track{display:inline-flex;gap:0;animation:scroll 38s linear infinite}
+  .marquee-track span{padding-inline:1.6em;display:inline-flex;align-items:center;gap:1.6em}
+  .marquee-track span::after{content:"✦";color:var(--leaf);font-size:.7em}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    transition:background .4s,box-shadow .4s,padding .4s;
+    padding-block:18px;
+  }
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  header .logo{color:#fff;transition:color .4s}
+  nav.main{display:flex;align-items:center;gap:6px}
+  nav.main a{
+    font-size:.92rem;font-weight:500;padding:.5em .85em;border-radius:8px;
+    color:rgba(255,255,255,.85);transition:color .25s,background .25s;
+  }
+  nav.main a:hover{color:#fff;background:rgba(255,255,255,.12)}
+  .header-cta{display:flex;align-items:center;gap:14px}
+
+  header.scrolled{background:var(--bone);box-shadow:0 1px 0 var(--line),0 10px 30px rgba(0,0,0,.06);padding-block:11px}
+  header.scrolled .logo{color:var(--ink)}
+  header.scrolled nav.main a{color:var(--ink-soft)}
+  header.scrolled nav.main a:hover{color:var(--ink);background:rgba(20,81,47,.08)}
+  header.scrolled .btn-ghost{border-color:var(--ink);color:var(--ink)}
+  header.scrolled .btn-ghost:hover{background:var(--ink);color:#fff}
+
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;width:42px;height:42px;flex-direction:column;justify-content:center;gap:5px;align-items:center}
+  .menu-btn span{display:block;width:24px;height:2px;background:currentColor;transition:.3s}
+  header .menu-btn{color:#fff}
+  header.scrolled .menu-btn{color:var(--ink)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero-media{position:absolute;inset:0;z-index:-2}
+  .hero-media img{width:100%;height:100%;object-fit:cover}
+  .hero-media::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(14,61,36,.55) 0%,rgba(14,61,36,.25) 38%,rgba(14,61,36,.55) 70%,rgba(11,48,28,.96) 100%);
+  }
+  .hero-inner{padding-bottom:clamp(56px,9vh,120px);padding-top:160px;width:100%}
+  .hero-tag{margin-bottom:26px;color:var(--leaf-bright)}
+  .hero h1{font-size:clamp(2.9rem,9vw,7rem);font-weight:400;max-width:16ch;margin-bottom:.35em}
+  .hero h1 em{font-style:italic;color:var(--leaf-bright)}
+  .hero p{font-size:clamp(1.05rem,1.7vw,1.3rem);max-width:46ch;color:rgba(255,255,255,.82);margin-bottom:34px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .scroll-hint{position:absolute;right:var(--pad);bottom:clamp(56px,9vh,120px);writing-mode:vertical-rl;font-family:var(--mono);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;opacity:.7;display:flex;align-items:center;gap:14px}
+  .scroll-hint::after{content:"";width:1px;height:46px;background:linear-gradient(var(--leaf-bright),transparent);animation:drop 2s ease-in-out infinite}
+  @keyframes drop{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* ---------- generic section ---------- */
+  section{padding-block:clamp(70px,9vw,130px)}
+  .on-dark{background:var(--forest);color:#fff}
+  .on-deep{background:var(--forest-deep);color:#fff}
+
+  /* wave divider (signature, echoes logo) */
+  .wave{display:block;width:100%;height:auto;line-height:0;background:var(--forest)}
+  .wave svg{display:block;width:100%;height:clamp(44px,6vw,92px)}
+
+  /* ---------- who ---------- */
+  .split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(36px,5vw,80px);align-items:center}
+  .who-media{position:relative}
+  .who-media .frame{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+  .who-media .frame img{width:100%;height:100%;object-fit:cover}
+  .who-media .badge{
+    position:absolute;right:-14px;bottom:-22px;width:128px;height:128px;border-radius:50%;
+    background:var(--leaf);color:#fff;display:grid;place-content:center;text-align:center;
+    box-shadow:0 18px 40px rgba(20,81,47,.4);
+  }
+  .who-media .badge b{font-family:var(--serif);font-size:2.6rem;line-height:1;display:block}
+  .who-media .badge span{font-size:.66rem;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:4px;display:block;opacity:.92}
+  .who-body p{margin-bottom:1.1em;color:rgba(255,255,255,.78)}
+  .founders{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+  .founder{border:1px solid var(--line-light);border-radius:12px;padding:14px 18px;font-size:.9rem}
+  .founder b{display:block;font-family:var(--serif);font-size:1.05rem;font-weight:500}
+  .founder span{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px);border-top:1px solid var(--line-light);padding-top:clamp(40px,5vw,64px);margin-top:clamp(56px,7vw,90px)}
+  .stat .num{font-family:var(--serif);font-size:clamp(2.4rem,4.6vw,3.6rem);line-height:1;color:var(--leaf-bright)}
+  .stat .num small{font-size:.5em;opacity:.8}
+  .stat p{font-size:.92rem;color:rgba(255,255,255,.7);margin-top:10px}
+
+  /* ---------- why ---------- */
+  .why .split{grid-template-columns:1fr 1.05fr}
+  .why-list{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+  .why-item{
+    display:flex;align-items:center;gap:16px;
+    background:var(--bone);border:1px solid var(--line);border-radius:14px;
+    padding:16px 20px;transition:transform .25s,box-shadow .25s,border-color .25s;
+  }
+  .why-item:hover{transform:translateX(6px);box-shadow:0 12px 28px rgba(0,0,0,.06);border-color:var(--leaf)}
+  .why-item .tick{flex:none;width:32px;height:32px;border-radius:50%;background:rgba(75,165,107,.15);color:var(--forest);display:grid;place-content:center}
+  .why-item .tick svg{width:16px;height:16px}
+  .why-item b{font-family:var(--serif);font-weight:500;font-size:1.12rem}
+  .why-media .frame{border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:0 30px 60px rgba(0,0,0,.14)}
+  .why-media .frame img{width:100%;height:100%;object-fit:cover}
+
+  /* ---------- coffee cards ---------- */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,30px)}
+  .ccard{
+    background:var(--bone);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s;
+  }
+  .ccard:hover{transform:translateY(-8px);box-shadow:0 28px 50px rgba(0,0,0,.12)}
+  .ccard .ph{aspect-ratio:16/11;overflow:hidden;position:relative}
+  .ccard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .ccard:hover .ph img{transform:scale(1.06)}
+  .ccard .tag{position:absolute;top:14px;left:14px;background:rgba(11,48,28,.85);color:#fff;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;padding:.5em .9em;border-radius:100px;backdrop-filter:blur(4px)}
+  .ccard .body{padding:26px 26px 30px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .ccard .body p{color:var(--ink-soft);font-size:.96rem;flex:1}
+  .ccard .more{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--forest);display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-weight:500}
+  .ccard .more svg{width:14px;height:14px;transition:transform .3s}
+  .ccard:hover .more svg{transform:translate(3px,-3px)}
+
+  /* ---------- processing (4 methods grid) ---------- */
+  .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,24px)}
+  .proc{
+    background:rgba(255,255,255,.04);border:1px solid var(--line-light);border-radius:var(--r);
+    padding:30px 26px 34px;transition:background .3s,transform .3s,border-color .3s;
+  }
+  .proc:hover{background:rgba(255,255,255,.07);transform:translateY(-6px);border-color:var(--leaf)}
+  .proc .idx{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--leaf-bright);opacity:.9}
+  .proc h3{margin:18px 0 12px;color:#fff}
+  .proc p{font-size:.92rem;color:rgba(255,255,255,.7)}
+  .proc .meta{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-light);font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+  /* ---------- origins ---------- */
+  .origins{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+  .origin{
+    display:grid;grid-template-columns:auto 1fr auto;gap:clamp(20px,4vw,60px);align-items:center;
+    padding-block:clamp(28px,3.5vw,46px);border-bottom:1px solid var(--line);
+    transition:background .3s;position:relative;
+  }
+  .origin:hover{background:var(--bone)}
+  .origin .code{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;color:var(--coffee);white-space:nowrap}
+  .origin .name{font-family:var(--serif);font-size:clamp(1.8rem,4.4vw,3.2rem);line-height:1;transition:transform .3s}
+  .origin:hover .name{transform:translateX(8px)}
+  .origin .name span{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:12px;max-width:60ch;line-height:1.7}
+  .origin .notes{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .origin .notes em{font-style:normal;font-size:.78rem;font-weight:500;background:rgba(75,165,107,.14);color:var(--forest);padding:.45em .85em;border-radius:100px}
+
+  /* ---------- contact / cta ---------- */
+  .cta-band{position:relative;overflow:hidden}
+  .cta-band .wrap{position:relative;z-index:1}
+  .cta-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,6vw,90px);align-items:start}
+  .cta-left h2{margin-bottom:.4em}
+  .cta-left .lead{color:rgba(255,255,255,.72);margin-bottom:34px}
+  .contact-list{display:flex;flex-direction:column;gap:2px;margin-top:10px}
+  .contact-row{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-top:1px solid var(--line-light)}
+  .contact-row .ic{flex:none;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);display:grid;place-content:center;color:var(--leaf-bright)}
+  .contact-row .ic svg{width:18px;height:18px}
+  .contact-row .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);display:block;margin-bottom:3px}
+  .contact-row a,.contact-row span{color:#fff;font-size:.98rem;word-break:break-word}
+  .contact-row a:hover{color:var(--leaf-bright)}
+
+  .form-card{background:var(--bone);color:var(--ink);border-radius:var(--r);padding:clamp(26px,3vw,40px);box-shadow:0 30px 70px rgba(0,0,0,.25)}
+  .form-card h3{margin-bottom:6px}
+  .form-card .sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:22px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px}
+  .field input,.field textarea,.field select{
+    width:100%;font-family:var(--sans);font-size:.96rem;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:10px;padding:.82em 1em;transition:border-color .25s,box-shadow .25s;
+  }
+  .field textarea{resize:vertical;min-height:96px}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--leaf);box-shadow:0 0 0 3px rgba(75,165,107,.18)}
+  .form-card .btn{width:100%;justify-content:center;margin-top:6px}
+  .form-note{font-size:.78rem;color:var(--ink-soft);margin-top:14px;text-align:center}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--forest-deep);color:rgba(255,255,255,.7);padding-block:clamp(56px,7vw,84px) 0}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:clamp(30px,4vw,56px)}
+  footer .logo{color:#fff;margin-bottom:20px}
+  footer .blurb{font-size:.92rem;max-width:34ch;margin-bottom:24px}
+  .socials{display:flex;gap:10px}
+  .socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-light);display:grid;place-content:center;color:#fff;transition:background .25s,border-color .25s,transform .25s}
+  .socials a:hover{background:var(--leaf);border-color:var(--leaf);transform:translateY(-3px)}
+  .socials a svg{width:17px;height:17px}
+  .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--leaf-bright);margin-bottom:20px;font-weight:500}
+  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .foot-col a{font-size:.94rem;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .foot-contact div{margin-bottom:14px;font-size:.92rem;line-height:1.5}
+  .foot-bottom{margin-top:clamp(48px,6vw,72px);border-top:1px solid var(--line-light);padding-block:26px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.82rem;font-family:var(--mono);letter-spacing:.04em}
+  .foot-bottom a{color:var(--leaf-bright)}
+
+  /* ---------- whatsapp float ---------- */
+  .wa-float{position:fixed;right:22px;bottom:22px;z-index:90;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-content:center;box-shadow:0 12px 30px rgba(37,211,102,.45);transition:transform .25s}
+  .wa-float:hover{transform:scale(1.08)}
+  .wa-float svg{width:30px;height:30px;fill:#fff}
+  .wa-float::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+  @media (prefers-reduced-motion:reduce){.wa-float::after{animation:none}}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .split,.why .split,.cta-grid{grid-template-columns:1fr;gap:48px}
+    .who-media{max-width:440px}
+    .stats{grid-template-columns:repeat(2,1fr);gap:34px 24px}
+    .grid-3{grid-template-columns:1fr 1fr}
+    .proc-grid{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .form-card{order:-1}
+  }
+  @media (max-width:680px){
+    nav.main,.header-cta .btn{display:none}
+    .menu-btn{display:flex}
+    .grid-3,.proc-grid,.stats,.foot-grid{grid-template-columns:1fr}
+    .origin{grid-template-columns:1fr;gap:14px;align-items:flex-start}
+    .origin .notes{justify-content:flex-start}
+    .scroll-hint{display:none}
+    .who-media .badge{width:104px;height:104px;right:0;bottom:-18px}
+    .foot-bottom{flex-direction:column}
+  }
+
+  /* mobile nav drawer */
+  .drawer{position:fixed;inset:0;z-index:200;background:var(--forest-deep);color:#fff;padding:var(--pad);transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column}
+  .drawer.open{transform:none}
+  .drawer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px}
+  .drawer-top .logo{color:#fff}
+  .drawer .close{background:none;border:0;color:#fff;font-size:2rem;cursor:pointer;line-height:1;width:44px;height:44px}
+  .drawer nav{display:flex;flex-direction:column;gap:4px}
+  .drawer nav a{font-family:var(--serif);font-size:1.8rem;padding:.35em 0;border-bottom:1px solid var(--line-light)}
+  .drawer .btn{margin-top:36px;justify-content:center}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header id="header">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Boledu Coffee home">
+      <svg viewBox="0 0 200 150" role="img" aria-hidden="true">
+        <ellipse cx="100" cy="75" rx="98" ry="72" fill="#5A3320"/>
+        <path d="M2 70 A98 72 0 0 1 198 70 C145 94 55 50 2 70 Z" fill="#176B3A"/>
+        <path d="M2 70 C55 50 145 94 198 70" fill="none" stroke="#FBF8F1" stroke-width="8"/>
+        <text x="100" y="48" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="33" fill="#fff" letter-spacing="1">BOLEDU</text>
+        <text x="100" y="112" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="26" fill="#fff" letter-spacing="3">COFFEE</text>
+      </svg>
+      <span class="lockup">Boledu<small>SPECIALTY COFFEE</small></span>
+    </a>
+
+    <nav class="main">
+      <a href="#who">Company</a>
+      <a href="#coffee">Our Coffee</a>
+      <a href="#processing">Processing</a>
+      <a href="#origins">Origins</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-cta">
+      <a class="btn btn-ghost" href="#contact">Order Crop 24/25</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="drawer" id="drawer">
+  <div class="drawer-top">
+    <span class="logo">
+      <svg viewBox="0 0 200 150" style="height:40px" aria-hidden="true">
+        <ellipse cx="100" cy="75" rx="98" ry="72" fill="#5A3320"/>
+        <path d="M2 70 A98 72 0 0 1 198 70 C145 94 55 50 2 70 Z" fill="#176B3A"/>
+        <path d="M2 70 C55 50 145 94 198 70" fill="none" stroke="#FBF8F1" stroke-width="8"/>
+        <text x="100" y="48" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="33" fill="#fff">BOLEDU</text>
+        <text x="100" y="112" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="26" fill="#fff" letter-spacing="3">COFFEE</text>
+      </svg>
+    </span>
+    <button class="close" id="drawerClose" aria-label="Close menu">×</button>
+  </div>
+  <nav>
+    <a href="#who">Company</a>
+    <a href="#coffee">Our Coffee</a>
+    <a href="#processing">Processing</a>
+    <a href="#origins">Origins</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="btn btn-leaf" href="#contact">Order Crop 2024/2025 <span class="arrow">↗</span></a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="hero-media">
+    <!-- Replace with Boledu's own washing-station photo -->
+    <img src="https://images.unsplash.com/photo-1442550528053-c431ecb55509?q=80&w=2000&auto=format&fit=crop" alt="Coffee cherries drying on raised beds at a washing station">
+  </div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow hero-tag">Yirgacheffe · Guji · Sidamo</span>
+    <h1>From our washing&nbsp;stations <em>to your roastery</em></h1>
+    <p>Fully traceable, organically certified Ethiopian specialty coffee — washed and natural, processed in our own stations and shipped direct.</p>
+    <div class="hero-actions">
+      <a class="btn btn-leaf" href="#coffee">Discover our coffee <span class="arrow">↗</span></a>
+      <a class="btn btn-ghost" href="#contact">Order Crop 2024/2025</a>
+    </div>
+  </div>
+  <span class="scroll-hint">Scroll</span>
+</section>
+
+<!-- origins marquee (signature) -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Yirgacheffe</span><span>Guji</span><span>Sidamo</span><span>Konga</span><span>Gedeb</span><span>Aricha</span>
+    <span>Yirgacheffe</span><span>Guji</span><span>Sidamo</span><span>Konga</span><span>Gedeb</span><span>Aricha</span>
+  </div>
+</div>
+
+<!-- ===== WHO WE ARE ===== -->
+<section class="on-dark" id="who">
+  <div class="wrap">
+    <div class="split">
+      <div class="who-media reveal">
+        <div class="frame">
+          <!-- Replace with Boledu's drying-bed photo -->
+          <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?q=80&w=1400&auto=format&fit=crop" alt="Coffee cherries drying in the sun on raised beds">
+        </div>
+        <div class="badge"><div><b>6</b><span>Years</span></div></div>
+      </div>
+      <div class="who-body">
+        <span class="eyebrow reveal" style="color:var(--leaf-bright)">Who we are</span>
+        <h2 class="reveal d1" style="margin:.3em 0 .6em">Grown in Ethiopia. Stewarded by Boledu.</h2>
+        <p class="reveal d2">Boledu Coffee operates washing stations across the Yirgacheffe district — Konga, Gedeb and Aricha — and in Guji. We build integrated supply chains with our farmer out‑growers in both districts, staying organically certified and keeping full traceability through every step.</p>
+        <p class="reveal d2">Founded in 2018 by two friends, the company partners with farmers to showcase the best of their coffee — bringing modern preparation and quality management to the regions where we work, then exporting washed and natural lots straight from the washing station to the international market.</p>
+        <div class="founders reveal d3">
+          <div class="founder"><b>Abiyot Ageze</b><span>Co‑founder</span></div>
+          <div class="founder"><b>Mebrahtu Aynalem</b><span>Co‑founder</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat reveal"><div class="num" data-count="6">0</div><p>Years producing &amp; exporting traceable lots</p></div>
+      <div class="stat reveal d1"><div class="num" data-count="2">0</div><p>Districts — Yirgacheffe &amp; Guji</p></div>
+      <div class="stat reveal d2"><div class="num" data-count="4">0</div><p>Owned &amp; operated washing stations</p></div>
+      <div class="stat reveal d3"><div class="num" data-count="100"><span class="cnt">0</span><small>%</small></div><p>Organically certified &amp; traceable</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wave" aria-hidden="true">
+  <!-- green -> parchment wave, echoing the logo's curve -->
+  <svg viewBox="0 0 1440 92" preserveAspectRatio="none"><path d="M0 0 C 380 86 1060 -18 1440 56 L1440 92 L0 92 Z" fill="#F4EFE4"/></svg>
+</div>
+
+<!-- ===== WHY BOLEDU ===== -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="split">
+      <div class="why-media reveal">
+        <div class="frame">
+          <!-- Replace with Boledu's own farm/cherry photo -->
+          <img src="https://images.unsplash.com/photo-1524350876685-274059332603?q=80&w=1200&auto=format&fit=crop" alt="Ripe red coffee cherries on the branch">
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow reveal" style="color:var(--forest)">Why Boledu</span>
+        <h2 class="reveal d1" style="margin:.3em 0 .5em">Reasons roasters choose us</h2>
+        <p class="lead reveal d2" style="margin-bottom:30px">From terroir to traceability — the things that make a Boledu lot worth specifying.</p>
+        <div class="why-list">
+          <div class="why-item reveal"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Award‑winning excellence</b></div>
+          <div class="why-item reveal d1"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Ethiopia's premier coffee terroir</b></div>
+          <div class="why-item reveal d1"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Innovative processing techniques</b></div>
+          <div class="why-item reveal d2"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Full traceability &amp; organic certification</b></div>
+          <div class="why-item reveal d2"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Owned &amp; operated washing stations</b></div>
+          <div class="why-item reveal d3"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Experienced coffee professionals</b></div>
+        </div>
+        <a class="btn btn-ink reveal d3" style="margin-top:30px" href="#contact">Discover our coffee <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUR COFFEE ===== -->
+<section class="on-deep" id="coffee">
+  <div class="wrap">
+    <div class="section-head on-dark">
+      <span class="eyebrow reveal" style="color:var(--leaf-bright)">Our coffee</span>
+      <h2 class="reveal d1">Three grades, one standard</h2>
+      <p class="lead reveal d2">Every offering carries the same traceability and care — choose the grade that fits your program.</p>
+    </div>
+    <div class="grid-3">
+      <article class="ccard reveal">
+        <div class="ph"><span class="tag">Top lots</span><img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?q=80&w=900&auto=format&fit=crop" alt="Drying coffee cherries"></div>
+        <div class="body">
+          <h3>Speciality Coffee</h3>
+          <p>Cup‑scoring lots from select micro‑zones in Yirgacheffe and Guji — washed and natural, prepared for roasters who specify by lot.</p>
+          <a class="more" href="#contact">Request samples <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+      </article>
+      <article class="ccard reveal d1">
+        <div class="ph"><span class="tag">Volume</span><img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=900&auto=format&fit=crop" alt="Green coffee beans"></div>
+        <div class="body">
+          <h3>Commercial Coffee</h3>
+          <p>Consistent, dependable green coffee at scale — the same supply‑chain discipline, built for larger, repeatable contracts.</p>
+          <a class="more" href="#contact">Discuss volume <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+      </article>
+      <article class="ccard reveal d2">
+        <div class="ph"><span class="tag">Certified</span><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=900&auto=format&fit=crop" alt="Mixed ripe and dried coffee cherries"></div>
+        <div class="body">
+          <h3>Certified Coffee</h3>
+          <p>Organically certified lots with documented traceability from washing station to shipment — paperwork ready for your buyers.</p>
+          <a class="more" href="#contact">See certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESSING ===== -->
+<section class="on-dark" id="processing">
+  <div class="wrap">
+    <div class="section-head on-dark">
+      <span class="eyebrow reveal" style="color:var(--leaf-bright)">Our processing</span>
+      <h2 class="reveal d1">Four methods. Distinct cups.</h2>
+      <p class="lead reveal d2">We process in our own stations across Yirgacheffe and Guji — choose the profile that suits your roast.</p>
+    </div>
+    <div class="proc-grid">
+      <div class="proc reveal">
+        <div class="idx">M / 01</div>
+        <h3>Washed</h3>
+        <p>Cherries are depulped, fermented in tanks to break down mucilage, then washed and dried on raised beds to 10–12% moisture. Yields bright, clean, crisp cups.</p>
+        <div class="meta">Bright · Clean · Crisp</div>
+      </div>
+      <div class="proc reveal d1">
+        <div class="idx">M / 02</div>
+        <h3>Natural</h3>
+        <p>Whole cherries dry intact in the sun on raised beds over 2–4 weeks, infusing the bean with fruit sugars. Bold body and complex, fruity notes.</p>
+        <div class="meta">Bold · Fruity · Sweet</div>
+      </div>
+      <div class="proc reveal d2">
+        <div class="idx">M / 03</div>
+        <h3>Honey</h3>
+        <p>Depulped cherries keep their sweet mucilage during sun‑drying. A hybrid that builds sweetness using less water — distinctive, balanced cups.</p>
+        <div class="meta">Balanced · Syrupy · Round</div>
+      </div>
+      <div class="proc reveal d3">
+        <div class="idx">M / 04</div>
+        <h3>Anaerobic</h3>
+        <p>Cherries ferment in sealed, oxygen‑free tanks where unique microbes develop esters and acids. Fruity, wine‑like, floral and experimental.</p>
+        <div class="meta">Wine‑like · Floral · Complex</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ORIGINS ===== -->
+<section id="origins">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow reveal" style="color:var(--coffee)">Coffee source</span>
+      <h2 class="reveal d1">Where it comes from</h2>
+      <p class="lead reveal d2">Direct relationships in Ethiopia's most celebrated growing regions — each with its own signature in the cup.</p>
+    </div>
+    <div class="origins">
+      <div class="origin reveal">
+        <span class="code">ET · 06°10′N</span>
+        <div class="name">Yirgacheffe<span>Konga, Gedeb &amp; Aricha — high‑altitude washing stations producing delicate, floral, tea‑like coffees.</span></div>
+        <div class="notes"><em>Jasmine</em><em>Citrus</em><em>Bergamot</em></div>
+      </div>
+      <div class="origin reveal d1">
+        <span class="code">ET · 05°55′N</span>
+        <div class="name">Guji<span>Our own washing station in Guji zone — vibrant naturals and clean washed lots with deep, layered fruit.</span></div>
+        <div class="notes"><em>Berry</em><em>Stone fruit</em><em>Cocoa</em></div>
+      </div>
+      <div class="origin reveal d2">
+        <span class="code">ET · 06°35′N</span>
+        <div class="name">Sidamo<span>Classic southern Ethiopian character — rounded, sweet and approachable across washed and natural profiles.</span></div>
+        <div class="notes"><em>Caramel</em><em>Lemon</em><em>Floral</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT / CTA ===== -->
+<section class="on-deep cta-band" id="contact">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div class="cta-left">
+        <span class="eyebrow reveal" style="color:var(--leaf-bright)">Order &amp; contact</span>
+        <h2 class="reveal d1">Order Crop 2024/2025</h2>
+        <p class="lead reveal d2">Tell us the profile, grade and volume you're after. We'll send current availability and offer samples straight from the washing station.</p>
+        <div class="contact-list reveal d2">
+          <div class="contact-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <div><span class="lbl">Office</span><span>Bole sub‑city, near Shapire Addis Hotel — Dat Tower, 2nd floor, Addis Ababa, Ethiopia</span></div>
+          </div>
+          <div class="contact-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg></span>
+            <div><span class="lbl">Phone</span><a href="tel:+251911624229">+251 911 624 229</a> · <a href="tel:+251911241781">+251 911 241 781/82</a></div>
+          </div>
+          <div class="contact-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg></span>
+            <div><span class="lbl">Email</span><a href="mailto:boleducoffee@yahoo.com">boleducoffee@yahoo.com</a> · <a href="mailto:mebeayn@yahoo.com">mebeayn@yahoo.com</a></div>
+          </div>
+          <div class="contact-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.6-1.4-3.7-3.2-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2A10 10 0 002 12a10 10 0 001.4 5.1L2 22l5-1.3A10 10 0 1012 2z"/></svg></span>
+            <div><span class="lbl">WhatsApp</span><a href="https://wa.me/251910336725" target="_blank" rel="noopener">+251 910 336 725</a></div>
+          </div>
+        </div>
+      </div>
+
+      <form class="form-card reveal d2" id="orderForm" novalidate>
+        <h3>Request an offer</h3>
+        <p class="sub">We'll reply with current Crop 2024/2025 availability.</p>
+        <div class="field"><label for="name">Name / Company</label><input id="name" name="name" type="text" placeholder="Roastery name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@company.com" required></div>
+        <div class="field"><label for="interest">Interested in</label>
+          <select id="interest" name="interest">
+            <option>Speciality — washed</option>
+            <option>Speciality — natural</option>
+            <option>Honey / Anaerobic lots</option>
+            <option>Commercial volume</option>
+            <option>Certified / organic</option>
+          </select>
+        </div>
+        <div class="field"><label for="msg">Volume &amp; details</label><textarea id="msg" name="message" placeholder="Origin, profile, bags, shipping window…"></textarea></div>
+        <button class="btn btn-leaf" type="submit">Send request <span class="arrow">↗</span></button>
+        <p class="form-note" id="formNote">Or message us on WhatsApp for a faster reply.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="logo">
+          <svg viewBox="0 0 200 150" style="height:48px" aria-hidden="true">
+            <ellipse cx="100" cy="75" rx="98" ry="72" fill="#5A3320"/>
+            <path d="M2 70 A98 72 0 0 1 198 70 C145 94 55 50 2 70 Z" fill="#176B3A"/>
+            <path d="M2 70 C55 50 145 94 198 70" fill="none" stroke="#FBF8F1" stroke-width="8"/>
+            <text x="100" y="48" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="33" fill="#fff">BOLEDU</text>
+            <text x="100" y="112" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="26" fill="#fff" letter-spacing="3">COFFEE</text>
+          </svg>
+        </span>
+        <p class="blurb">Operator of washing stations in Yirgacheffe (Konga, Gedeb, Aricha) and Guji — organically certified, fully traceable Ethiopian specialty coffee.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 3h3l-7 8 8 10h-6l-5-6-5 6H3l8-9L3 3h6l4 5 5-5z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 9H3v12h3V9zm-1.5-5A1.75 1.75 0 103 5.75 1.75 1.75 0 004.5 4zM21 14c0-3-1.6-4.5-3.8-4.5A3.3 3.3 0 0014 11V9h-3v12h3v-6c0-1.4.6-2.3 1.8-2.3S18 13.6 18 15v6h3v-7z"/></svg></a>
+          <a href="https://wa.me/251910336725" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.6-1.4-3.7-3.2-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Our coffee</h4>
+        <ul>
+          <li><a href="#coffee">Speciality</a></li>
+          <li><a href="#coffee">Commercial</a></li>
+          <li><a href="#coffee">Certified</a></li>
+          <li><a href="#processing">Processing</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#who">About us</a></li>
+          <li><a href="#origins">Coffee source</a></li>
+          <li><a href="#why">Why Boledu</a></li>
+          <li><a href="#contact">Social responsibility</a></li>
+        </ul>
+      </div>
+      <div class="foot-col foot-contact">
+        <h4>Contact</h4>
+        <div>Bole sub‑city, near Shapire Addis Hotel — Dat Tower, 2nd floor, Addis Ababa, Ethiopia</div>
+        <div><a href="tel:+251911624229">+251 911 624 229</a><br><a href="tel:+251911241781">+251 911 241 781/82</a></div>
+        <div><a href="mailto:boleducoffee@yahoo.com">boleducoffee@yahoo.com</a></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Boledu Coffee. All rights reserved.</span>
+      <span>Yirgacheffe · Guji · Sidamo — Ethiopia</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/251910336725" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.6-1.4-3.7-3.2-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2A10 10 0 002 12a10 10 0 001.4 5.1L2 22l5-1.3A10 10 0 1012 2z"/></svg>
+</a>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // header scrolled state
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // mobile drawer
+  const drawer = document.getElementById('drawer');
+  const open = () => drawer.classList.add('open');
+  const close = () => drawer.classList.remove('open');
+  document.getElementById('menuBtn').addEventListener('click', open);
+  document.getElementById('drawerClose').addEventListener('click', close);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // animated counters
+  const countEls = document.querySelectorAll('.num[data-count]');
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(!e.isIntersecting) return;
+      const el = e.target, target = +el.dataset.count;
+      const out = el.querySelector('.cnt') || el.childNodes[0];
+      let n = 0; const step = Math.max(1, Math.round(target/40));
+      const tick = () => {
+        n = Math.min(target, n+step);
+        if(el.querySelector('.cnt')) el.querySelector('.cnt').textContent = n;
+        else el.firstChild.textContent = n;
+        if(n<target) requestAnimationFrame(tick);
+      };
+      tick(); cio.unobserve(el);
+    });
+  }, {threshold:.6});
+  countEls.forEach(el => cio.observe(el));
+
+  // demo form handler (no backend) — wire to Web3Forms/email for production
+  document.getElementById('orderForm').addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const note = document.getElementById('formNote');
+    note.textContent = 'Thanks — opening WhatsApp so you can send right away.';
+    note.style.color = 'var(--forest)';
+    setTimeout(() => { window.open('https://wa.me/251910336725','_blank'); }, 600);
+  });
+</script>
+</body>
+</html>
