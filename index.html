@@ -12,8 +12,8 @@
 <meta name="author" content="Boledu Coffee" />
 <meta name="robots" content="index, follow" />
 
-<!-- Favicon (inline SVG — coffee mark with leaf, matches brand palette) -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%235A3320'/><path d='M16 7c4 4 7 8 7 12a7 7 0 0 1-14 0c0-4 3-8 7-12z' fill='%235FBF82'/></svg>" />
+<!-- Favicon — the exact same logo SVG used in the header/footer, just embedded as a data URI -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><ellipse cx='100' cy='75' rx='98' ry='72' fill='%235A3320'/><path d='M2 70 A98 72 0 0 1 198 70 C145 94 55 50 2 70 Z' fill='%23176B3A'/><path d='M2 70 C55 50 145 94 198 70' fill='none' stroke='%23FBF8F1' stroke-width='8'/><text x='100' y='48' text-anchor='middle' font-family='Hanken Grotesque,sans-serif' font-weight='700' font-size='33' fill='%23fff' letter-spacing='1'>BOLEDU</text><text x='100' y='112' text-anchor='middle' font-family='Hanken Grotesque,sans-serif' font-weight='700' font-size='26' fill='%23fff' letter-spacing='3'>COFFEE</text></svg>" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -128,7 +128,7 @@
 
   .section-head{max-width:760px;margin-bottom:clamp(40px,5vw,68px)}
   .section-head h2{margin:.35em 0 .5em}
-  .on-dark .section-head .lead{color:rgba(255,255,255,.7)}
+  .on-dark .section-head .lead,.on-deep .section-head .lead{color:rgba(255,255,255,.7)}
 
   /* ---------- buttons ---------- */
   .btn{
@@ -265,7 +265,7 @@
   /* ---------- coffee cards ---------- */
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,30px)}
   .ccard{
-    background:var(--bone);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    background:var(--bone);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
     display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s;
   }
   .ccard:hover{transform:translateY(-8px);box-shadow:0 28px 50px rgba(0,0,0,.12)}
@@ -573,7 +573,7 @@
 <!-- ===== OUR COFFEE ===== -->
 <section class="on-deep" id="coffee">
   <div class="wrap">
-    <div class="section-head on-dark">
+    <div class="section-head">
       <span class="eyebrow reveal" style="color:var(--leaf-bright)">Our coffee</span>
       <h2 class="reveal d1">Three grades, one standard</h2>
       <p class="lead reveal d2">Every offering carries the same traceability and care — choose the grade that fits your program.</p>
@@ -792,7 +792,7 @@
 </footer>
 
 <a class="wa-float" href="https://wa.me/251910336725" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.6-1.4-3.7-3.2-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2A10 10 0 002 12a10 10 0 001.4 5.1L2 22l5-1.3A10 10 0 1012 2z"/></svg>
+  <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
 </a>
 
 <script>
