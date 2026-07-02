@@ -11,6 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Hanken+Grotesque:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+  .lead.reveal.d2 {
+  color: white;
+}
   :root{
     --forest:#14512F;
     --forest-deep:#0E3D24;
@@ -79,7 +82,7 @@
     font-family:var(--sans);font-weight:600;font-size:.95rem;
     padding:.92em 1.5em;border-radius:100px;border:1px solid transparent;
     cursor:pointer;transition:transform .25s,background .25s,color .25s,border-color .25s;
-    line-height:1;
+    line-height:1;white-space:nowrap;
   }
   .btn .arrow{transition:transform .3s}
   .btn:hover .arrow{transform:translate(3px,-3px)}
@@ -163,6 +166,7 @@
 
   /* wave divider (signature, echoes logo) */
   .wave{display:block;width:100%;height:auto;line-height:0;background:var(--forest)}
+  .wave--deep{background:var(--forest-deep)}
   .wave svg{display:block;width:100%;height:clamp(44px,6vw,92px)}
 
   /* ---------- who ---------- */
@@ -221,17 +225,42 @@
   .ccard .more svg{width:14px;height:14px;transition:transform .3s}
   .ccard:hover .more svg{transform:translate(3px,-3px)}
 
-  /* ---------- processing (4 methods grid) ---------- */
-  .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,24px)}
-  .proc{
-    background:rgba(255,255,255,.04);border:1px solid var(--line-light);border-radius:var(--r);
-    padding:30px 26px 34px;transition:background .3s,transform .3s,border-color .3s;
+  /* ---------- processing (numbered timeline) ---------- */
+  .proc-section{background:var(--bone)}
+  .proc-timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px)}
+  .proc-line{position:absolute;top:0;left:12.5%;right:12.5%;border-top:2px dotted rgba(20,81,47,.35);z-index:0}
+  .pcard{
+    position:relative;border-radius:20px;border:1px solid;padding:66px 24px 32px;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    transition:transform .3s,box-shadow .3s;
   }
-  .proc:hover{background:rgba(255,255,255,.07);transform:translateY(-6px);border-color:var(--leaf)}
-  .proc .idx{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--leaf-bright);opacity:.9}
-  .proc h3{margin:18px 0 12px;color:#fff}
-  .proc p{font-size:.92rem;color:rgba(255,255,255,.7)}
-  .proc .meta{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-light);font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .pcard:hover{transform:translateY(-8px);box-shadow:0 26px 50px rgba(20,50,30,.12)}
+  .pnode{
+    position:absolute;top:0;left:50%;transform:translate(-50%,-50%);
+    width:40px;height:40px;border-radius:50%;background:var(--forest);color:#fff;
+    display:grid;place-content:center;font-family:var(--mono);font-size:.84rem;font-weight:500;
+    z-index:3;box-shadow:0 0 0 7px var(--bone),0 6px 14px rgba(20,81,47,.35);
+  }
+  .pdrop{position:absolute;top:26px;left:50%;transform:translateX(-50%);width:0;height:26px;border-left:2px dotted rgba(20,81,47,.4);z-index:1}
+  .pdrop::after{content:"";position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:0;height:0;border:5px solid transparent;border-top-color:rgba(20,81,47,.55)}
+  .picon{width:78px;height:78px;border-radius:50%;background:#fff;border:2px dashed rgba(20,81,47,.4);display:grid;place-content:center;margin-bottom:20px;box-shadow:0 8px 18px rgba(20,50,30,.06)}
+  .picon svg{width:34px;height:34px;color:var(--forest)}
+  .pcard h3{color:var(--forest);margin-bottom:16px}
+  .pcard p{font-size:.9rem;line-height:1.75;color:var(--ink-soft);text-align:left}
+  /* per-method tints */
+  .pcard.t1{background:#E9F1EA;border-color:#D2E4D6}
+  .pcard.t2{background:#F7ECDB;border-color:#ECD9BE}
+  .pcard.t3{background:#F8EFD1;border-color:#ECDDA6}
+  .pcard.t4{background:#EFE6EF;border-color:#DFCFDF}
+  .pcard.t2 .pnode{background:#B4732E;box-shadow:0 0 0 7px var(--bone),0 6px 14px rgba(180,115,46,.35)}
+  .pcard.t3 .pnode{background:#C79A2A;box-shadow:0 0 0 7px var(--bone),0 6px 14px rgba(199,154,42,.35)}
+  .pcard.t4 .pnode{background:#8A5A86;box-shadow:0 0 0 7px var(--bone),0 6px 14px rgba(138,90,134,.35)}
+  .pcard.t2 .picon svg{color:#9C601F}
+  .pcard.t3 .picon svg{color:#A9821B}
+  .pcard.t4 .picon svg{color:#734870}
+  .pcard.t2 h3{color:#8A551B}
+  .pcard.t3 h3{color:#93701A}
+  .pcard.t4 h3{color:#6C4368}
 
   /* ---------- origins ---------- */
   .origins{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
@@ -313,14 +342,16 @@
     .who-media{max-width:440px}
     .stats{grid-template-columns:repeat(2,1fr);gap:34px 24px}
     .grid-3{grid-template-columns:1fr 1fr}
-    .proc-grid{grid-template-columns:1fr 1fr}
+    .proc-timeline{grid-template-columns:1fr 1fr;gap:52px 18px}
+    .proc-line{display:none}
     .foot-grid{grid-template-columns:1fr 1fr}
     .form-card{order:-1}
   }
   @media (max-width:680px){
     nav.main,.header-cta .btn{display:none}
     .menu-btn{display:flex}
-    .grid-3,.proc-grid,.stats,.foot-grid{grid-template-columns:1fr}
+    .grid-3,.stats,.foot-grid{grid-template-columns:1fr}
+    .proc-timeline{grid-template-columns:1fr;gap:56px}
     .origin{grid-template-columns:1fr;gap:14px;align-items:flex-start}
     .origin .notes{justify-content:flex-start}
     .scroll-hint{display:none}
@@ -429,7 +460,7 @@
           <!-- Replace with Boledu's drying-bed photo -->
           <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?q=80&w=1400&auto=format&fit=crop" alt="Coffee cherries drying in the sun on raised beds">
         </div>
-        <div class="badge"><div><b>6</b><span>Years</span></div></div>
+        <div class="badge"><div><b data-count="6" data-dyn="years">0</b><span>Years</span></div></div>
       </div>
       <div class="who-body">
         <span class="eyebrow reveal" style="color:var(--leaf-bright)">Who we are</span>
@@ -444,7 +475,7 @@
     </div>
 
     <div class="stats">
-      <div class="stat reveal"><div class="num" data-count="6">0</div><p>Years producing &amp; exporting traceable lots</p></div>
+      <div class="stat reveal"><div class="num" data-count="6" data-dyn="years">0</div><p>Years producing &amp; exporting traceable lots</p></div>
       <div class="stat reveal d1"><div class="num" data-count="2">0</div><p>Districts — Yirgacheffe &amp; Guji</p></div>
       <div class="stat reveal d2"><div class="num" data-count="4">0</div><p>Owned &amp; operated washing stations</p></div>
       <div class="stat reveal d3"><div class="num" data-count="100"><span class="cnt">0</span><small>%</small></div><p>Organically certified &amp; traceable</p></div>
@@ -522,39 +553,54 @@
   </div>
 </section>
 
+<!-- deep-green -> light wave into processing -->
+<div class="wave wave--deep" aria-hidden="true">
+  <svg viewBox="0 0 1440 92" preserveAspectRatio="none"><path d="M0 0 C 380 86 1060 -18 1440 56 L1440 92 L0 92 Z" fill="#FBF8F1"/></svg>
+</div>
+
 <!-- ===== PROCESSING ===== -->
-<section class="on-dark" id="processing">
+<section class="proc-section" id="processing">
   <div class="wrap">
-    <div class="section-head on-dark">
-      <span class="eyebrow reveal" style="color:var(--leaf-bright)">Our processing</span>
-      <h2 class="reveal d1">Four methods. Distinct cups.</h2>
-      <p class="lead reveal d2">We process in our own stations across Yirgacheffe and Guji — choose the profile that suits your roast.</p>
+    <div class="section-head">
+      <span class="eyebrow reveal" style="color:var(--forest)">Our processing</span>
+      <h2 class="reveal d1">Four ways we process</h2>
+      <p class="lead reveal d2" style="color: rgb(15, 15, 15);">Every method is run in our own washing stations across Yirgacheffe and Guji — each shapes a distinct cup.</p>
     </div>
-    <div class="proc-grid">
-      <div class="proc reveal">
-        <div class="idx">M / 01</div>
+
+    <div class="proc-timeline">
+      <div class="proc-line" aria-hidden="true"></div>
+
+      <article class="pcard t1 reveal">
+        <span class="pnode">01</span>
+        <span class="pdrop" aria-hidden="true"></span>
+        <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3c3 3.6 6 6.9 6 10.2A6 6 0 0 1 6 13.2C6 9.9 9 6.6 12 3z"/></svg></span>
         <h3>Washed</h3>
-        <p>Cherries are depulped, fermented in tanks to break down mucilage, then washed and dried on raised beds to 10–12% moisture. Yields bright, clean, crisp cups.</p>
-        <div class="meta">Bright · Clean · Crisp</div>
-      </div>
-      <div class="proc reveal d1">
-        <div class="idx">M / 02</div>
+        <p>The washed coffee process starts with harvesting ripe cherries, which are mechanically depulped to remove the outer skin. Beans coated in sticky mucilage ferment in water tanks (12–48 hours) to break down residue. After fermentation, they're washed to eliminate fruit remnants. The beans then dry on raised beds/patios until moisture reaches 10–12%. Finally, they're hulled to remove the parchment layer and polished for sorting. This method yields bright, acidic coffees with crisp, clean flavors — common in Colombia and Ethiopia — but requires substantial water compared to other techniques.</p>
+      </article>
+
+      <article class="pcard t2 reveal d1">
+        <span class="pnode">02</span>
+        <span class="pdrop" aria-hidden="true"></span>
+        <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg></span>
         <h3>Natural</h3>
-        <p>Whole cherries dry intact in the sun on raised beds over 2–4 weeks, infusing the bean with fruit sugars. Bold body and complex, fruity notes.</p>
-        <div class="meta">Bold · Fruity · Sweet</div>
-      </div>
-      <div class="proc reveal d2">
-        <div class="idx">M / 03</div>
+        <p>Natural coffee processing, also called the dry method, involves drying freshly harvested coffee cherries intact under the sun. The cherries are spread on raised beds or patios and regularly turned to ensure even drying, which can take 2–4 weeks. As the fruit ferments and shrivels, sugars infuse the beans, creating a sweet, fruity flavor profile. This water-efficient technique, common in arid regions like Ethiopia and Brazil, yields coffees with bold body and complex notes. However, inconsistent drying can risk mold or over-fermentation, requiring meticulous monitoring to preserve quality.</p>
+      </article>
+
+      <article class="pcard t3 reveal d2">
+        <span class="pnode">03</span>
+        <span class="pdrop" aria-hidden="true"></span>
+        <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2.6l8 4.6v9.6l-8 4.6-8-4.6V7.2z"/><path d="M12 8.4v4.2M12 12.6l3.4 2M12 12.6l-3.4 2" stroke-width="1.3"/></svg></span>
         <h3>Honey</h3>
-        <p>Depulped cherries keep their sweet mucilage during sun‑drying. A hybrid that builds sweetness using less water — distinctive, balanced cups.</p>
-        <div class="meta">Balanced · Syrupy · Round</div>
-      </div>
-      <div class="proc reveal d3">
-        <div class="idx">M / 04</div>
+        <p>Depulped cherries retain sweet mucilage ("honey") during sun-drying on raised beds. This layer enables controlled fermentation, enhancing sweetness. Categories (yellow, red, black) reflect mucilage levels and drying duration — black retains the most and dries longest. The hybrid technique yields distinctive flavors while using less water than fully washed processing. It demands vigilant monitoring during extended drying to prevent mold or over-fermentation. This balance creates complex cup profiles prized in specialty coffee markets for their innovative yet traditional character.</p>
+      </article>
+
+      <article class="pcard t4 reveal d3">
+        <span class="pnode">04</span>
+        <span class="pdrop" aria-hidden="true"></span>
+        <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M9 3h6M10 3v5.5L5.5 17a2.2 2.2 0 0 0 2 3.3h9a2.2 2.2 0 0 0 2-3.3L14 8.5V3"/><path d="M7.7 14h8.6" stroke-width="1.3"/></svg></span>
         <h3>Anaerobic</h3>
-        <p>Cherries ferment in sealed, oxygen‑free tanks where unique microbes develop esters and acids. Fruity, wine‑like, floral and experimental.</p>
-        <div class="meta">Wine‑like · Floral · Complex</div>
-      </div>
+        <p>Anaerobic coffee processing ferments cherries in sealed, oxygen-free tanks (typically stainless steel). By eliminating oxygen, unique microbes thrive, slowing fermentation to develop complex compounds like esters and acids. This creates distinct fruity, wine-like, or floral flavors with enhanced sweetness and acidity. Producers meticulously control temperature, pH, and duration (days to weeks) to shape bean characteristics. Popular in specialty coffee, this innovative method emphasizes experimentation, yielding bold, nuanced cups that differ from traditional processes.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -565,7 +611,7 @@
     <div class="section-head">
       <span class="eyebrow reveal" style="color:var(--coffee)">Coffee source</span>
       <h2 class="reveal d1">Where it comes from</h2>
-      <p class="lead reveal d2">Direct relationships in Ethiopia's most celebrated growing regions — each with its own signature in the cup.</p>
+      <p class="lead reveal d2" style="color: rgb(14, 13, 13);">Direct relationships in Ethiopia's most celebrated growing regions — each with its own signature in the cup.</p>
     </div>
     <div class="origins">
       <div class="origin reveal">
@@ -718,24 +764,31 @@
   }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // animated counters
-  const countEls = document.querySelectorAll('.num[data-count]');
+  // ---- dynamic "years in business": auto-updates every year ----
+  const FOUNDED = 2018;   // Boledu Coffee founding year — change this one number if needed
+  const yearsInBusiness = Math.max(1, new Date().getFullYear() - FOUNDED);
+  document.querySelectorAll('[data-dyn="years"]').forEach(el => el.dataset.count = yearsInBusiness);
+
+  // ---- animated count-up (fires when each number scrolls into view / on refresh) ----
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const setVal = (el,n) => { const c = el.querySelector('.cnt'); if(c) c.textContent = n; else el.firstChild.textContent = n; };
   const cio = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if(!e.isIntersecting) return;
       const el = e.target, target = +el.dataset.count;
-      const out = el.querySelector('.cnt') || el.childNodes[0];
-      let n = 0; const step = Math.max(1, Math.round(target/40));
-      const tick = () => {
-        n = Math.min(target, n+step);
-        if(el.querySelector('.cnt')) el.querySelector('.cnt').textContent = n;
-        else el.firstChild.textContent = n;
-        if(n<target) requestAnimationFrame(tick);
+      cio.unobserve(el);
+      if(reduceMotion){ setVal(el,target); return; }
+      const dur = 1200, t0 = performance.now();
+      const tick = (t) => {
+        const p = Math.min(1,(t-t0)/dur);
+        const eased = 1 - Math.pow(1-p, 3);       // ease-out
+        setVal(el, Math.round(target*eased));
+        if(p<1) requestAnimationFrame(tick); else setVal(el,target);
       };
-      tick(); cio.unobserve(el);
+      requestAnimationFrame(tick);
     });
   }, {threshold:.6});
-  countEls.forEach(el => cio.observe(el));
+  document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
 
   // demo form handler (no backend) — wire to Web3Forms/email for production
   document.getElementById('orderForm').addEventListener('submit', (ev) => {
