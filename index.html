@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Boledu Coffee — Ethiopian Specialty Coffee, Washing Station to Roastery</title>
+<title data-i18n="meta.title">Boledu Coffee — Ethiopian Specialty Coffee, Washing Station to Roastery</title>
 <meta name="description" content="Boledu Coffee operates washing stations in Yirgacheffe and Guji, exporting fully traceable, organically certified Ethiopian specialty coffee direct to international roasters." />
 
 <!-- NOTE: replace the placeholder domain below (https://boleducoffee.com/) with the real site URL once known -->
@@ -422,6 +422,38 @@
   .drawer nav{display:flex;flex-direction:column;gap:4px}
   .drawer nav a{font-family:var(--serif);font-size:1.8rem;padding:.35em 0;border-bottom:1px solid var(--line-light)}
   .drawer .btn{margin-top:36px;justify-content:center}
+
+  /* ---------- language switcher ---------- */
+  .lang{position:relative}
+  .lang-btn{
+    display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+    background:none;border:1px solid rgba(255,255,255,.4);border-radius:100px;
+    color:#fff;font-family:var(--sans);font-weight:600;font-size:.85rem;
+    padding:.5em .8em;line-height:1;transition:color .25s,border-color .25s,background .25s;
+  }
+  .lang-btn:hover{background:rgba(255,255,255,.1)}
+  .lang-btn .globe{width:15px;height:15px}
+  .lang-btn .chev{width:11px;height:11px;transition:transform .3s;opacity:.8}
+  .lang-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  header.scrolled .lang-btn{border-color:var(--line);color:var(--ink)}
+  header.scrolled .lang-btn:hover{background:rgba(20,81,47,.08)}
+  .lang-menu{
+    position:absolute;top:calc(100% + 10px);right:0;min-width:158px;z-index:120;
+    background:var(--bone);border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 16px 40px rgba(0,0,0,.18);padding:6px;list-style:none;
+    display:none;
+  }
+  .lang-menu.open{display:block}
+  .lang-menu button{
+    width:100%;text-align:left;background:none;border:0;cursor:pointer;
+    font-family:var(--sans);font-size:.92rem;color:var(--ink);
+    padding:.62em .8em;border-radius:9px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    transition:background .2s;
+  }
+  .lang-menu button:hover{background:rgba(20,81,47,.08)}
+  .lang-menu button[aria-selected="true"]{color:var(--forest);font-weight:600}
+  .lang-menu button[aria-selected="true"]::after{content:"✓";color:var(--leaf);font-weight:700}
+  @media (max-width:400px){.lang-btn .chev{display:none}.lang-btn{padding:.5em .6em}}
 </style>
 </head>
 <body>
@@ -441,16 +473,29 @@
     </a>
 
     <nav class="main">
-      <a href="#who">Company</a>
-      <a href="#coffee">Our Coffee</a>
-      <a href="#processing">Processing</a>
-      <a href="#origins">Origins</a>
-      <a href="#contact">Contact</a>
+      <a href="#who" data-i18n="nav.company">Company</a>
+      <a href="#coffee" data-i18n="nav.coffee">Our Coffee</a>
+      <a href="#processing" data-i18n="nav.processing">Processing</a>
+      <a href="#origins" data-i18n="nav.origins">Origins</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
 
     <div class="header-cta">
-      <a class="btn btn-ghost" href="#contact">Order Crop 24/25</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <div class="lang" id="lang">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Select language" data-i18n-aria-label="aria.lang">
+          <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.9 2.6 15.1 0 18M12 3c-2.6 2.9-2.6 15.1 0 18"/></svg>
+          <span class="lang-cur">EN</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="menu">
+          <li><button type="button" role="menuitemradio" data-lang="en">English</button></li>
+          <li><button type="button" role="menuitemradio" data-lang="es">Español</button></li>
+          <li><button type="button" role="menuitemradio" data-lang="fr">Français</button></li>
+          <li><button type="button" role="menuitemradio" data-lang="de">Deutsch</button></li>
+        </ul>
+      </div>
+      <a class="btn btn-ghost" href="#contact" data-i18n="cta.order">Order Crop 24/25</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" data-i18n-aria-label="aria.menuOpen"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -467,16 +512,16 @@
         <text x="100" y="112" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="26" fill="#fff" letter-spacing="3">COFFEE</text>
       </svg>
     </span>
-    <button class="close" id="drawerClose" aria-label="Close menu">×</button>
+    <button class="close" id="drawerClose" aria-label="Close menu" data-i18n-aria-label="aria.menuClose">×</button>
   </div>
   <nav>
-    <a href="#who">Company</a>
-    <a href="#coffee">Our Coffee</a>
-    <a href="#processing">Processing</a>
-    <a href="#origins">Origins</a>
-    <a href="#contact">Contact</a>
+    <a href="#who" data-i18n="nav.company">Company</a>
+    <a href="#coffee" data-i18n="nav.coffee">Our Coffee</a>
+    <a href="#processing" data-i18n="nav.processing">Processing</a>
+    <a href="#origins" data-i18n="nav.origins">Origins</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
-  <a class="btn btn-leaf" href="#contact">Order Crop 2024/2025 <span class="arrow">↗</span></a>
+  <a class="btn btn-leaf" href="#contact"><span data-i18n="cta.orderFull">Order Crop 2024/2025</span> <span class="arrow">↗</span></a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -487,14 +532,14 @@
   </div>
   <div class="wrap hero-inner">
     <span class="eyebrow hero-tag">Yirgacheffe · Guji · Sidamo</span>
-    <h1>From our washing&nbsp;stations <em>to your roastery</em></h1>
-    <p>Fully traceable, organically certified Ethiopian specialty coffee — washed and natural, processed in our own stations and shipped direct.</p>
+    <h1 data-i18n="hero.h1">From our washing&nbsp;stations <em>to your roastery</em></h1>
+    <p data-i18n="hero.p">Fully traceable, organically certified Ethiopian specialty coffee — washed and natural, processed in our own stations and shipped direct.</p>
     <div class="hero-actions">
-      <a class="btn btn-leaf" href="#coffee">Discover our coffee <span class="arrow">↗</span></a>
-      <a class="btn btn-ghost" href="#contact">Order Crop 2024/2025</a>
+      <a class="btn btn-leaf" href="#coffee"><span data-i18n="common.discover">Discover our coffee</span> <span class="arrow">↗</span></a>
+      <a class="btn btn-ghost" href="#contact" data-i18n="cta.orderFull">Order Crop 2024/2025</a>
     </div>
   </div>
-  <span class="scroll-hint">Scroll</span>
+  <span class="scroll-hint" data-i18n="hero.scroll">Scroll</span>
 </section>
 
 <!-- origins marquee (signature) -->
@@ -514,25 +559,25 @@
           <!-- Replace with Boledu's drying-bed photo -->
           <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?q=80&w=1400&auto=format&fit=crop" alt="Coffee cherries drying in the sun on raised beds" loading="lazy" decoding="async">
         </div>
-        <div class="badge"><div><b data-count="6" data-dyn="years">0</b><span>Years</span></div></div>
+        <div class="badge"><div><b data-count="6" data-dyn="years">0</b><span data-i18n="who.years">Years</span></div></div>
       </div>
       <div class="who-body">
-        <span class="eyebrow reveal" style="color:var(--leaf-bright)">Who we are</span>
-        <h2 class="reveal d1" style="margin:.3em 0 .6em">Grown in Ethiopia. Stewarded by Boledu.</h2>
-        <p class="reveal d2">Boledu Coffee operates washing stations across the Yirgacheffe district — Konga, Gedeb and Aricha — and in Guji. We build integrated supply chains with our farmer out‑growers in both districts, staying organically certified and keeping full traceability through every step.</p>
-        <p class="reveal d2">Founded in 2018 by two friends, the company partners with farmers to showcase the best of their coffee — bringing modern preparation and quality management to the regions where we work, then exporting washed and natural lots straight from the washing station to the international market.</p>
+        <span class="eyebrow reveal" style="color:var(--leaf-bright)" data-i18n="who.eyebrow">Who we are</span>
+        <h2 class="reveal d1" style="margin:.3em 0 .6em" data-i18n="who.h2">Grown in Ethiopia. Stewarded by Boledu.</h2>
+        <p class="reveal d2" data-i18n="who.p1">Boledu Coffee operates washing stations across the Yirgacheffe district — Konga, Gedeb and Aricha — and in Guji. We build integrated supply chains with our farmer out‑growers in both districts, staying organically certified and keeping full traceability through every step.</p>
+        <p class="reveal d2" data-i18n="who.p2">Founded in 2018 by two friends, the company partners with farmers to showcase the best of their coffee — bringing modern preparation and quality management to the regions where we work, then exporting washed and natural lots straight from the washing station to the international market.</p>
         <div class="founders reveal d3">
-          <div class="founder"><b>Abiyot Ageze</b><span>Co‑founder</span></div>
-          <div class="founder"><b>Mebrahtu Aynalem</b><span>Co‑founder</span></div>
+          <div class="founder"><b>Abiyot Ageze</b><span data-i18n="who.role">Co‑founder</span></div>
+          <div class="founder"><b>Mebrahtu Aynalem</b><span data-i18n="who.role">Co‑founder</span></div>
         </div>
       </div>
     </div>
 
     <div class="stats">
-      <div class="stat reveal"><div class="num" data-count="6" data-dyn="years">0</div><p>Years producing &amp; exporting traceable lots</p></div>
-      <div class="stat reveal d1"><div class="num" data-count="2">0</div><p>Districts — Yirgacheffe &amp; Guji</p></div>
-      <div class="stat reveal d2"><div class="num" data-count="4">0</div><p>Owned &amp; operated washing stations</p></div>
-      <div class="stat reveal d3"><div class="num" data-count="100"><span class="cnt">0</span><small>%</small></div><p>Organically certified &amp; traceable</p></div>
+      <div class="stat reveal"><div class="num" data-count="6" data-dyn="years">0</div><p data-i18n="stats.years">Years producing &amp; exporting traceable lots</p></div>
+      <div class="stat reveal d1"><div class="num" data-count="2">0</div><p data-i18n="stats.districts">Districts — Yirgacheffe &amp; Guji</p></div>
+      <div class="stat reveal d2"><div class="num" data-count="4">0</div><p data-i18n="stats.stations">Owned &amp; operated washing stations</p></div>
+      <div class="stat reveal d3"><div class="num" data-count="100"><span class="cnt">0</span><small>%</small></div><p data-i18n="stats.certified">Organically certified &amp; traceable</p></div>
     </div>
   </div>
 </section>
@@ -553,18 +598,18 @@
         </div>
       </div>
       <div>
-        <span class="eyebrow reveal" style="color:var(--forest)">Why Boledu</span>
-        <h2 class="reveal d1" style="margin:.3em 0 .5em">Reasons roasters choose us</h2>
-        <p class="lead reveal d2" style="margin-bottom:30px">From terroir to traceability — the things that make a Boledu lot worth specifying.</p>
+        <span class="eyebrow reveal" style="color:var(--forest)" data-i18n="why.eyebrow">Why Boledu</span>
+        <h2 class="reveal d1" style="margin:.3em 0 .5em" data-i18n="why.h2">Reasons roasters choose us</h2>
+        <p class="lead reveal d2" style="margin-bottom:30px" data-i18n="why.lead">From terroir to traceability — the things that make a Boledu lot worth specifying.</p>
         <div class="why-list">
-          <div class="why-item reveal"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Award‑winning excellence</b></div>
-          <div class="why-item reveal d1"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Ethiopia's premier coffee terroir</b></div>
-          <div class="why-item reveal d1"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Innovative processing techniques</b></div>
-          <div class="why-item reveal d2"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Full traceability &amp; organic certification</b></div>
-          <div class="why-item reveal d2"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Owned &amp; operated washing stations</b></div>
-          <div class="why-item reveal d3"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b>Experienced coffee professionals</b></div>
+          <div class="why-item reveal"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b data-i18n="why.i1">Award‑winning excellence</b></div>
+          <div class="why-item reveal d1"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b data-i18n="why.i2">Ethiopia's premier coffee terroir</b></div>
+          <div class="why-item reveal d1"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b data-i18n="why.i3">Innovative processing techniques</b></div>
+          <div class="why-item reveal d2"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b data-i18n="why.i4">Full traceability &amp; organic certification</b></div>
+          <div class="why-item reveal d2"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b data-i18n="why.i5">Owned &amp; operated washing stations</b></div>
+          <div class="why-item reveal d3"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><b data-i18n="why.i6">Experienced coffee professionals</b></div>
         </div>
-        <a class="btn btn-ink reveal d3" style="margin-top:30px" href="#contact">Discover our coffee <span class="arrow">↗</span></a>
+        <a class="btn btn-ink reveal d3" style="margin-top:30px" href="#contact"><span data-i18n="common.discover">Discover our coffee</span> <span class="arrow">↗</span></a>
       </div>
     </div>
   </div>
@@ -574,33 +619,33 @@
 <section class="on-deep" id="coffee">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal" style="color:var(--leaf-bright)">Our coffee</span>
-      <h2 class="reveal d1">Three grades, one standard</h2>
-      <p class="lead reveal d2">Every offering carries the same traceability and care — choose the grade that fits your program.</p>
+      <span class="eyebrow reveal" style="color:var(--leaf-bright)" data-i18n="coffee.eyebrow">Our coffee</span>
+      <h2 class="reveal d1" data-i18n="coffee.h2">Three grades, one standard</h2>
+      <p class="lead reveal d2" data-i18n="coffee.lead">Every offering carries the same traceability and care — choose the grade that fits your program.</p>
     </div>
     <div class="grid-3">
       <article class="ccard reveal">
-        <div class="ph"><span class="tag">Top lots</span><img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?q=80&w=900&auto=format&fit=crop" alt="Drying coffee cherries" loading="lazy" decoding="async"></div>
+        <div class="ph"><span class="tag" data-i18n="coffee.tagTop">Top lots</span><img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?q=80&w=900&auto=format&fit=crop" alt="Drying coffee cherries" loading="lazy" decoding="async"></div>
         <div class="body">
-          <h3>Speciality Coffee</h3>
-          <p>Cup‑scoring lots from select micro‑zones in Yirgacheffe and Guji — washed and natural, prepared for roasters who specify by lot.</p>
-          <a class="more" href="#contact">Request samples <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <h3 data-i18n="coffee.c1title">Speciality Coffee</h3>
+          <p data-i18n="coffee.c1desc">Cup‑scoring lots from select micro‑zones in Yirgacheffe and Guji — washed and natural, prepared for roasters who specify by lot.</p>
+          <a class="more" href="#contact"><span data-i18n="coffee.c1cta">Request samples</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
         </div>
       </article>
       <article class="ccard reveal d1">
-        <div class="ph"><span class="tag">Volume</span><img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=900&auto=format&fit=crop" alt="Green coffee beans" loading="lazy" decoding="async"></div>
+        <div class="ph"><span class="tag" data-i18n="coffee.tagVolume">Volume</span><img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=900&auto=format&fit=crop" alt="Green coffee beans" loading="lazy" decoding="async"></div>
         <div class="body">
-          <h3>Commercial Coffee</h3>
-          <p>Consistent, dependable green coffee at scale — the same supply‑chain discipline, built for larger, repeatable contracts.</p>
-          <a class="more" href="#contact">Discuss volume <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <h3 data-i18n="coffee.c2title">Commercial Coffee</h3>
+          <p data-i18n="coffee.c2desc">Consistent, dependable green coffee at scale — the same supply‑chain discipline, built for larger, repeatable contracts.</p>
+          <a class="more" href="#contact"><span data-i18n="coffee.c2cta">Discuss volume</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
         </div>
       </article>
       <article class="ccard reveal d2">
-        <div class="ph"><span class="tag">Certified</span><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=900&auto=format&fit=crop" alt="Mixed ripe and dried coffee cherries" loading="lazy" decoding="async"></div>
+        <div class="ph"><span class="tag" data-i18n="coffee.tagCertified">Certified</span><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=900&auto=format&fit=crop" alt="Mixed ripe and dried coffee cherries" loading="lazy" decoding="async"></div>
         <div class="body">
-          <h3>Certified Coffee</h3>
-          <p>Organically certified lots with documented traceability from washing station to shipment — paperwork ready for your buyers.</p>
-          <a class="more" href="#contact">See certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <h3 data-i18n="coffee.c3title">Certified Coffee</h3>
+          <p data-i18n="coffee.c3desc">Organically certified lots with documented traceability from washing station to shipment — paperwork ready for your buyers.</p>
+          <a class="more" href="#contact"><span data-i18n="coffee.c3cta">See certifications</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
         </div>
       </article>
     </div>
@@ -616,9 +661,9 @@
 <section class="proc-section" id="processing">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal" style="color:var(--forest)">Our processing</span>
-      <h2 class="reveal d1">Four ways we process</h2>
-      <p class="lead reveal d2">Every method is run in our own washing stations across Yirgacheffe and Guji — each shapes a distinct cup.</p>
+      <span class="eyebrow reveal" style="color:var(--forest)" data-i18n="proc.eyebrow">Our processing</span>
+      <h2 class="reveal d1" data-i18n="proc.h2">Four ways we process</h2>
+      <p class="lead reveal d2" data-i18n="proc.lead">Every method is run in our own washing stations across Yirgacheffe and Guji — each shapes a distinct cup.</p>
     </div>
 
     <div class="proc-timeline">
@@ -628,32 +673,32 @@
         <span class="pnode">01</span>
         <span class="pdrop" aria-hidden="true"></span>
         <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3c3 3.6 6 6.9 6 10.2A6 6 0 0 1 6 13.2C6 9.9 9 6.6 12 3z"/></svg></span>
-        <h3>Washed</h3>
-        <p>The washed coffee process starts with harvesting ripe cherries, which are mechanically depulped to remove the outer skin. Beans coated in sticky mucilage ferment in water tanks (12–48 hours) to break down residue. After fermentation, they're washed to eliminate fruit remnants. The beans then dry on raised beds/patios until moisture reaches 10–12%. Finally, they're hulled to remove the parchment layer and polished for sorting. This method yields bright, acidic coffees with crisp, clean flavors — common in Colombia and Ethiopia — but requires substantial water compared to other techniques.</p>
+        <h3 data-i18n="proc.washed">Washed</h3>
+        <p data-i18n="proc.washedDesc">The washed coffee process starts with harvesting ripe cherries, which are mechanically depulped to remove the outer skin. Beans coated in sticky mucilage ferment in water tanks (12–48 hours) to break down residue. After fermentation, they're washed to eliminate fruit remnants. The beans then dry on raised beds/patios until moisture reaches 10–12%. Finally, they're hulled to remove the parchment layer and polished for sorting. This method yields bright, acidic coffees with crisp, clean flavors — common in Colombia and Ethiopia — but requires substantial water compared to other techniques.</p>
       </article>
 
       <article class="pcard t2 reveal d1">
         <span class="pnode">02</span>
         <span class="pdrop" aria-hidden="true"></span>
         <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg></span>
-        <h3>Natural</h3>
-        <p>Natural coffee processing, also called the dry method, involves drying freshly harvested coffee cherries intact under the sun. The cherries are spread on raised beds or patios and regularly turned to ensure even drying, which can take 2–4 weeks. As the fruit ferments and shrivels, sugars infuse the beans, creating a sweet, fruity flavor profile. This water-efficient technique, common in arid regions like Ethiopia and Brazil, yields coffees with bold body and complex notes. However, inconsistent drying can risk mold or over-fermentation, requiring meticulous monitoring to preserve quality.</p>
+        <h3 data-i18n="proc.natural">Natural</h3>
+        <p data-i18n="proc.naturalDesc">Natural coffee processing, also called the dry method, involves drying freshly harvested coffee cherries intact under the sun. The cherries are spread on raised beds or patios and regularly turned to ensure even drying, which can take 2–4 weeks. As the fruit ferments and shrivels, sugars infuse the beans, creating a sweet, fruity flavor profile. This water-efficient technique, common in arid regions like Ethiopia and Brazil, yields coffees with bold body and complex notes. However, inconsistent drying can risk mold or over-fermentation, requiring meticulous monitoring to preserve quality.</p>
       </article>
 
       <article class="pcard t3 reveal d2">
         <span class="pnode">03</span>
         <span class="pdrop" aria-hidden="true"></span>
         <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2.6l8 4.6v9.6l-8 4.6-8-4.6V7.2z"/><path d="M12 8.4v4.2M12 12.6l3.4 2M12 12.6l-3.4 2" stroke-width="1.3"/></svg></span>
-        <h3>Honey</h3>
-        <p>Depulped cherries retain sweet mucilage ("honey") during sun-drying on raised beds. This layer enables controlled fermentation, enhancing sweetness. Categories (yellow, red, black) reflect mucilage levels and drying duration — black retains the most and dries longest. The hybrid technique yields distinctive flavors while using less water than fully washed processing. It demands vigilant monitoring during extended drying to prevent mold or over-fermentation. This balance creates complex cup profiles prized in specialty coffee markets for their innovative yet traditional character.</p>
+        <h3 data-i18n="proc.honey">Honey</h3>
+        <p data-i18n="proc.honeyDesc">Depulped cherries retain sweet mucilage ("honey") during sun-drying on raised beds. This layer enables controlled fermentation, enhancing sweetness. Categories (yellow, red, black) reflect mucilage levels and drying duration — black retains the most and dries longest. The hybrid technique yields distinctive flavors while using less water than fully washed processing. It demands vigilant monitoring during extended drying to prevent mold or over-fermentation. This balance creates complex cup profiles prized in specialty coffee markets for their innovative yet traditional character.</p>
       </article>
 
       <article class="pcard t4 reveal d3">
         <span class="pnode">04</span>
         <span class="pdrop" aria-hidden="true"></span>
         <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M9 3h6M10 3v5.5L5.5 17a2.2 2.2 0 0 0 2 3.3h9a2.2 2.2 0 0 0 2-3.3L14 8.5V3"/><path d="M7.7 14h8.6" stroke-width="1.3"/></svg></span>
-        <h3>Anaerobic</h3>
-        <p>Anaerobic coffee processing ferments cherries in sealed, oxygen-free tanks (typically stainless steel). By eliminating oxygen, unique microbes thrive, slowing fermentation to develop complex compounds like esters and acids. This creates distinct fruity, wine-like, or floral flavors with enhanced sweetness and acidity. Producers meticulously control temperature, pH, and duration (days to weeks) to shape bean characteristics. Popular in specialty coffee, this innovative method emphasizes experimentation, yielding bold, nuanced cups that differ from traditional processes.</p>
+        <h3 data-i18n="proc.anaerobic">Anaerobic</h3>
+        <p data-i18n="proc.anaerobicDesc">Anaerobic coffee processing ferments cherries in sealed, oxygen-free tanks (typically stainless steel). By eliminating oxygen, unique microbes thrive, slowing fermentation to develop complex compounds like esters and acids. This creates distinct fruity, wine-like, or floral flavors with enhanced sweetness and acidity. Producers meticulously control temperature, pH, and duration (days to weeks) to shape bean characteristics. Popular in specialty coffee, this innovative method emphasizes experimentation, yielding bold, nuanced cups that differ from traditional processes.</p>
       </article>
     </div>
   </div>
@@ -663,25 +708,25 @@
 <section id="origins">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal" style="color:var(--coffee)">Coffee source</span>
-      <h2 class="reveal d1">Where it comes from</h2>
-      <p class="lead reveal d2">Direct relationships in Ethiopia's most celebrated growing regions — each with its own signature in the cup.</p>
+      <span class="eyebrow reveal" style="color:var(--coffee)" data-i18n="origins.eyebrow">Coffee source</span>
+      <h2 class="reveal d1" data-i18n="origins.h2">Where it comes from</h2>
+      <p class="lead reveal d2" data-i18n="origins.lead">Direct relationships in Ethiopia's most celebrated growing regions — each with its own signature in the cup.</p>
     </div>
     <div class="origins">
       <div class="origin reveal">
         <span class="code">ET · 06°10′N</span>
-        <div class="name">Yirgacheffe<span>Konga, Gedeb &amp; Aricha — high‑altitude washing stations producing delicate, floral, tea‑like coffees.</span></div>
-        <div class="notes"><em>Jasmine</em><em>Citrus</em><em>Bergamot</em></div>
+        <div class="name">Yirgacheffe<span data-i18n="origins.yirgDesc">Konga, Gedeb &amp; Aricha — high‑altitude washing stations producing delicate, floral, tea‑like coffees.</span></div>
+        <div class="notes"><em data-i18n="taste.jasmine">Jasmine</em><em data-i18n="taste.citrus">Citrus</em><em data-i18n="taste.bergamot">Bergamot</em></div>
       </div>
       <div class="origin reveal d1">
         <span class="code">ET · 05°55′N</span>
-        <div class="name">Guji<span>Our own washing station in Guji zone — vibrant naturals and clean washed lots with deep, layered fruit.</span></div>
-        <div class="notes"><em>Berry</em><em>Stone fruit</em><em>Cocoa</em></div>
+        <div class="name">Guji<span data-i18n="origins.gujiDesc">Our own washing station in Guji zone — vibrant naturals and clean washed lots with deep, layered fruit.</span></div>
+        <div class="notes"><em data-i18n="taste.berry">Berry</em><em data-i18n="taste.stonefruit">Stone fruit</em><em data-i18n="taste.cocoa">Cocoa</em></div>
       </div>
       <div class="origin reveal d2">
         <span class="code">ET · 06°35′N</span>
-        <div class="name">Sidamo<span>Classic southern Ethiopian character — rounded, sweet and approachable across washed and natural profiles.</span></div>
-        <div class="notes"><em>Caramel</em><em>Lemon</em><em>Floral</em></div>
+        <div class="name">Sidamo<span data-i18n="origins.sidamoDesc">Classic southern Ethiopian character — rounded, sweet and approachable across washed and natural profiles.</span></div>
+        <div class="notes"><em data-i18n="taste.caramel">Caramel</em><em data-i18n="taste.lemon">Lemon</em><em data-i18n="taste.floral">Floral</em></div>
       </div>
     </div>
   </div>
@@ -692,46 +737,46 @@
   <div class="wrap">
     <div class="cta-grid">
       <div class="cta-left">
-        <span class="eyebrow reveal" style="color:var(--leaf-bright)">Order &amp; contact</span>
-        <h2 class="reveal d1">Order Crop 2024/2025</h2>
-        <p class="lead reveal d2">Tell us the profile, grade and volume you're after. We'll send current availability and offer samples straight from the washing station.</p>
+        <span class="eyebrow reveal" style="color:var(--leaf-bright)" data-i18n="contact.eyebrow">Order &amp; contact</span>
+        <h2 class="reveal d1" data-i18n="contact.h2">Order Crop 2024/2025</h2>
+        <p class="lead reveal d2" data-i18n="contact.lead">Tell us the profile, grade and volume you're after. We'll send current availability and offer samples straight from the washing station.</p>
         <div class="contact-list reveal d2">
           <div class="contact-row">
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-            <div><span class="lbl">Office</span><span>Bole sub‑city, near Shapire Addis Hotel — Dat Tower, 2nd floor, Addis Ababa, Ethiopia</span></div>
+            <div><span class="lbl" data-i18n="contact.lblOffice">Office</span><span data-i18n="contact.office">Bole sub‑city, near Shapire Addis Hotel — Dat Tower, 2nd floor, Addis Ababa, Ethiopia</span></div>
           </div>
           <div class="contact-row">
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg></span>
-            <div><span class="lbl">Phone</span><a href="tel:+251911624229">+251 911 624 229</a> · <a href="tel:+251911241781">+251 911 241 781/82</a></div>
+            <div><span class="lbl" data-i18n="contact.lblPhone">Phone</span><a href="tel:+251911624229">+251 911 624 229</a> · <a href="tel:+251911241781">+251 911 241 781/82</a></div>
           </div>
           <div class="contact-row">
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg></span>
-            <div><span class="lbl">Email</span><a href="mailto:boleducoffee@yahoo.com">boleducoffee@yahoo.com</a> · <a href="mailto:mebeayn@yahoo.com">mebeayn@yahoo.com</a></div>
+            <div><span class="lbl" data-i18n="contact.lblEmail">Email</span><a href="mailto:boleducoffee@yahoo.com">boleducoffee@yahoo.com</a> · <a href="mailto:mebeayn@yahoo.com">mebeayn@yahoo.com</a></div>
           </div>
           <div class="contact-row">
             <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.6-1.4-3.7-3.2-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2A10 10 0 002 12a10 10 0 001.4 5.1L2 22l5-1.3A10 10 0 1012 2z"/></svg></span>
-            <div><span class="lbl">WhatsApp</span><a href="https://wa.me/251910336725" target="_blank" rel="noopener">+251 910 336 725</a></div>
+            <div><span class="lbl" data-i18n="contact.lblWhatsapp">WhatsApp</span><a href="https://wa.me/251910336725" target="_blank" rel="noopener">+251 910 336 725</a></div>
           </div>
         </div>
       </div>
 
       <form class="form-card reveal d2" id="orderForm" novalidate>
-        <h3>Request an offer</h3>
-        <p class="sub">We'll reply with current Crop 2024/2025 availability.</p>
-        <div class="field"><label for="name">Name / Company</label><input id="name" name="name" type="text" placeholder="Roastery name" required></div>
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@company.com" required></div>
-        <div class="field"><label for="interest">Interested in</label>
+        <h3 data-i18n="form.h3">Request an offer</h3>
+        <p class="sub" data-i18n="form.sub">We'll reply with current Crop 2024/2025 availability.</p>
+        <div class="field"><label for="name" data-i18n="form.nameLabel">Name / Company</label><input id="name" name="name" type="text" placeholder="Roastery name" data-i18n-placeholder="form.namePlaceholder" required></div>
+        <div class="field"><label for="email" data-i18n="form.emailLabel">Email</label><input id="email" name="email" type="email" placeholder="you@company.com" data-i18n-placeholder="form.emailPlaceholder" required></div>
+        <div class="field"><label for="interest" data-i18n="form.interestLabel">Interested in</label>
           <select id="interest" name="interest">
-            <option>Speciality — washed</option>
-            <option>Speciality — natural</option>
-            <option>Honey / Anaerobic lots</option>
-            <option>Commercial volume</option>
-            <option>Certified / organic</option>
+            <option value="Speciality — washed" data-i18n="form.opt1">Speciality — washed</option>
+            <option value="Speciality — natural" data-i18n="form.opt2">Speciality — natural</option>
+            <option value="Honey / Anaerobic lots" data-i18n="form.opt3">Honey / Anaerobic lots</option>
+            <option value="Commercial volume" data-i18n="form.opt4">Commercial volume</option>
+            <option value="Certified / organic" data-i18n="form.opt5">Certified / organic</option>
           </select>
         </div>
-        <div class="field"><label for="msg">Volume &amp; details</label><textarea id="msg" name="message" placeholder="Origin, profile, bags, shipping window…"></textarea></div>
-        <button class="btn btn-leaf" type="submit">Send request <span class="arrow">↗</span></button>
-        <p class="form-note" id="formNote">Or message us on WhatsApp for a faster reply.</p>
+        <div class="field"><label for="msg" data-i18n="form.volumeLabel">Volume &amp; details</label><textarea id="msg" name="message" placeholder="Origin, profile, bags, shipping window…" data-i18n-placeholder="form.volumePlaceholder"></textarea></div>
+        <button class="btn btn-leaf" type="submit"><span data-i18n="form.send">Send request</span> <span class="arrow">↗</span></button>
+        <p class="form-note" id="formNote" data-i18n="form.note">Or message us on WhatsApp for a faster reply.</p>
       </form>
     </div>
   </div>
@@ -751,7 +796,7 @@
             <text x="100" y="112" text-anchor="middle" font-family="Hanken Grotesque,sans-serif" font-weight="700" font-size="26" fill="#fff" letter-spacing="3">COFFEE</text>
           </svg>
         </span>
-        <p class="blurb">Operator of washing stations in Yirgacheffe (Konga, Gedeb, Aricha) and Guji — organically certified, fully traceable Ethiopian specialty coffee.</p>
+        <p class="blurb" data-i18n="footer.blurb">Operator of washing stations in Yirgacheffe (Konga, Gedeb, Aricha) and Guji — organically certified, fully traceable Ethiopian specialty coffee.</p>
         <div class="socials">
           <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
           <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 3h3l-7 8 8 10h-6l-5-6-5 6H3l8-9L3 3h6l4 5 5-5z"/></svg></a>
@@ -760,38 +805,38 @@
         </div>
       </div>
       <div class="foot-col">
-        <h4>Our coffee</h4>
+        <h4 data-i18n="footer.ourCoffeeH">Our coffee</h4>
         <ul>
-          <li><a href="#coffee">Speciality</a></li>
-          <li><a href="#coffee">Commercial</a></li>
-          <li><a href="#coffee">Certified</a></li>
-          <li><a href="#processing">Processing</a></li>
+          <li><a href="#coffee" data-i18n="footer.fSpeciality">Speciality</a></li>
+          <li><a href="#coffee" data-i18n="footer.fCommercial">Commercial</a></li>
+          <li><a href="#coffee" data-i18n="footer.fCertified">Certified</a></li>
+          <li><a href="#processing" data-i18n="footer.fProcessing">Processing</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h4>Company</h4>
+        <h4 data-i18n="footer.companyH">Company</h4>
         <ul>
-          <li><a href="#who">About us</a></li>
-          <li><a href="#origins">Coffee source</a></li>
-          <li><a href="#why">Why Boledu</a></li>
-          <li><a href="#contact">Social responsibility</a></li>
+          <li><a href="#who" data-i18n="footer.about">About us</a></li>
+          <li><a href="#origins" data-i18n="footer.source">Coffee source</a></li>
+          <li><a href="#why" data-i18n="footer.whyLink">Why Boledu</a></li>
+          <li><a href="#contact" data-i18n="footer.social">Social responsibility</a></li>
         </ul>
       </div>
       <div class="foot-col foot-contact">
-        <h4>Contact</h4>
-        <div>Bole sub‑city, near Shapire Addis Hotel — Dat Tower, 2nd floor, Addis Ababa, Ethiopia</div>
+        <h4 data-i18n="footer.contactH">Contact</h4>
+        <div data-i18n="contact.office">Bole sub‑city, near Shapire Addis Hotel — Dat Tower, 2nd floor, Addis Ababa, Ethiopia</div>
         <div><a href="tel:+251911624229">+251 911 624 229</a><br><a href="tel:+251911241781">+251 911 241 781/82</a></div>
         <div><a href="mailto:boleducoffee@yahoo.com">boleducoffee@yahoo.com</a></div>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="yr"></span> Boledu Coffee. All rights reserved.</span>
+      <span>© <span id="yr"></span> Boledu Coffee. <span data-i18n="footer.rights">All rights reserved.</span></span>
       <span>Yirgacheffe · Guji · Sidamo — Ethiopia</span>
     </div>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/251910336725" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<a class="wa-float" href="https://wa.me/251910336725" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" data-i18n-aria-label="aria.whatsapp">
   <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
 </a>
 
@@ -864,11 +909,232 @@
       'Volume & details: ' + (val('message') || '—')
     ].join('\n');
     const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
-    formNote.textContent = 'Thanks — opening WhatsApp with your details ready to send.';
+    formNote.textContent = (I18N[currentLang] || I18N.en)['form.sent'];
     formNote.style.color = 'var(--forest)';
     window.open(url, '_blank', 'noopener');    // opened on user gesture to avoid popup blocking
     orderForm.reset();
   });
+
+  /* ============================================================
+     LANGUAGE SWITCHER (EN / ES / FR / DE)
+     Add a new string: add its key to every language object below,
+     then tag the element with data-i18n="key" (or
+     data-i18n-placeholder / data-i18n-aria-label for attributes).
+     Note: the WhatsApp enquiry message stays in English on purpose,
+     so Boledu always receives orders in one readable language.
+     ============================================================ */
+  let currentLang = 'en';
+  const I18N = {
+    en: {
+      'meta.title': `Boledu Coffee — Ethiopian Specialty Coffee, Washing Station to Roastery`,
+      'aria.lang': `Select language`, 'aria.menuOpen': `Open menu`, 'aria.menuClose': `Close menu`, 'aria.whatsapp': `Chat on WhatsApp`,
+      'nav.company': `Company`, 'nav.coffee': `Our Coffee`, 'nav.processing': `Processing`, 'nav.origins': `Origins`, 'nav.contact': `Contact`,
+      'cta.order': `Order Crop 24/25`, 'cta.orderFull': `Order Crop 2024/2025`, 'common.discover': `Discover our coffee`,
+      'hero.h1': `From our washing&nbsp;stations <em>to your roastery</em>`,
+      'hero.p': `Fully traceable, organically certified Ethiopian specialty coffee — washed and natural, processed in our own stations and shipped direct.`,
+      'hero.scroll': `Scroll`,
+      'who.eyebrow': `Who we are`, 'who.h2': `Grown in Ethiopia. Stewarded by Boledu.`,
+      'who.p1': `Boledu Coffee operates washing stations across the Yirgacheffe district — Konga, Gedeb and Aricha — and in Guji. We build integrated supply chains with our farmer out‑growers in both districts, staying organically certified and keeping full traceability through every step.`,
+      'who.p2': `Founded in 2018 by two friends, the company partners with farmers to showcase the best of their coffee — bringing modern preparation and quality management to the regions where we work, then exporting washed and natural lots straight from the washing station to the international market.`,
+      'who.role': `Co‑founder`, 'who.years': `Years`,
+      'stats.years': `Years producing & exporting traceable lots`, 'stats.districts': `Districts — Yirgacheffe & Guji`, 'stats.stations': `Owned & operated washing stations`, 'stats.certified': `Organically certified & traceable`,
+      'why.eyebrow': `Why Boledu`, 'why.h2': `Reasons roasters choose us`, 'why.lead': `From terroir to traceability — the things that make a Boledu lot worth specifying.`,
+      'why.i1': `Award‑winning excellence`, 'why.i2': `Ethiopia's premier coffee terroir`, 'why.i3': `Innovative processing techniques`, 'why.i4': `Full traceability & organic certification`, 'why.i5': `Owned & operated washing stations`, 'why.i6': `Experienced coffee professionals`,
+      'coffee.eyebrow': `Our coffee`, 'coffee.h2': `Three grades, one standard`, 'coffee.lead': `Every offering carries the same traceability and care — choose the grade that fits your program.`,
+      'coffee.tagTop': `Top lots`, 'coffee.tagVolume': `Volume`, 'coffee.tagCertified': `Certified`,
+      'coffee.c1title': `Speciality Coffee`, 'coffee.c1desc': `Cup‑scoring lots from select micro‑zones in Yirgacheffe and Guji — washed and natural, prepared for roasters who specify by lot.`, 'coffee.c1cta': `Request samples`,
+      'coffee.c2title': `Commercial Coffee`, 'coffee.c2desc': `Consistent, dependable green coffee at scale — the same supply‑chain discipline, built for larger, repeatable contracts.`, 'coffee.c2cta': `Discuss volume`,
+      'coffee.c3title': `Certified Coffee`, 'coffee.c3desc': `Organically certified lots with documented traceability from washing station to shipment — paperwork ready for your buyers.`, 'coffee.c3cta': `See certifications`,
+      'proc.eyebrow': `Our processing`, 'proc.h2': `Four ways we process`, 'proc.lead': `Every method is run in our own washing stations across Yirgacheffe and Guji — each shapes a distinct cup.`,
+      'proc.washed': `Washed`, 'proc.washedDesc': `The washed coffee process starts with harvesting ripe cherries, which are mechanically depulped to remove the outer skin. Beans coated in sticky mucilage ferment in water tanks (12–48 hours) to break down residue. After fermentation, they're washed to eliminate fruit remnants. The beans then dry on raised beds/patios until moisture reaches 10–12%. Finally, they're hulled to remove the parchment layer and polished for sorting. This method yields bright, acidic coffees with crisp, clean flavors — common in Colombia and Ethiopia — but requires substantial water compared to other techniques.`,
+      'proc.natural': `Natural`, 'proc.naturalDesc': `Natural coffee processing, also called the dry method, involves drying freshly harvested coffee cherries intact under the sun. The cherries are spread on raised beds or patios and regularly turned to ensure even drying, which can take 2–4 weeks. As the fruit ferments and shrivels, sugars infuse the beans, creating a sweet, fruity flavor profile. This water-efficient technique, common in arid regions like Ethiopia and Brazil, yields coffees with bold body and complex notes. However, inconsistent drying can risk mold or over-fermentation, requiring meticulous monitoring to preserve quality.`,
+      'proc.honey': `Honey`, 'proc.honeyDesc': `Depulped cherries retain sweet mucilage ("honey") during sun-drying on raised beds. This layer enables controlled fermentation, enhancing sweetness. Categories (yellow, red, black) reflect mucilage levels and drying duration — black retains the most and dries longest. The hybrid technique yields distinctive flavors while using less water than fully washed processing. It demands vigilant monitoring during extended drying to prevent mold or over-fermentation. This balance creates complex cup profiles prized in specialty coffee markets for their innovative yet traditional character.`,
+      'proc.anaerobic': `Anaerobic`, 'proc.anaerobicDesc': `Anaerobic coffee processing ferments cherries in sealed, oxygen-free tanks (typically stainless steel). By eliminating oxygen, unique microbes thrive, slowing fermentation to develop complex compounds like esters and acids. This creates distinct fruity, wine-like, or floral flavors with enhanced sweetness and acidity. Producers meticulously control temperature, pH, and duration (days to weeks) to shape bean characteristics. Popular in specialty coffee, this innovative method emphasizes experimentation, yielding bold, nuanced cups that differ from traditional processes.`,
+      'origins.eyebrow': `Coffee source`, 'origins.h2': `Where it comes from`, 'origins.lead': `Direct relationships in Ethiopia's most celebrated growing regions — each with its own signature in the cup.`,
+      'origins.yirgDesc': `Konga, Gedeb & Aricha — high‑altitude washing stations producing delicate, floral, tea‑like coffees.`,
+      'origins.gujiDesc': `Our own washing station in Guji zone — vibrant naturals and clean washed lots with deep, layered fruit.`,
+      'origins.sidamoDesc': `Classic southern Ethiopian character — rounded, sweet and approachable across washed and natural profiles.`,
+      'taste.jasmine': `Jasmine`, 'taste.citrus': `Citrus`, 'taste.bergamot': `Bergamot`, 'taste.berry': `Berry`, 'taste.stonefruit': `Stone fruit`, 'taste.cocoa': `Cocoa`, 'taste.caramel': `Caramel`, 'taste.lemon': `Lemon`, 'taste.floral': `Floral`,
+      'contact.eyebrow': `Order & contact`, 'contact.h2': `Order Crop 2024/2025`, 'contact.lead': `Tell us the profile, grade and volume you're after. We'll send current availability and offer samples straight from the washing station.`,
+      'contact.lblOffice': `Office`, 'contact.office': `Bole sub‑city, near Shapire Addis Hotel — Dat Tower, 2nd floor, Addis Ababa, Ethiopia`, 'contact.lblPhone': `Phone`, 'contact.lblEmail': `Email`, 'contact.lblWhatsapp': `WhatsApp`,
+      'form.h3': `Request an offer`, 'form.sub': `We'll reply with current Crop 2024/2025 availability.`, 'form.nameLabel': `Name / Company`, 'form.namePlaceholder': `Roastery name`, 'form.emailLabel': `Email`, 'form.emailPlaceholder': `you@company.com`, 'form.interestLabel': `Interested in`,
+      'form.opt1': `Speciality — washed`, 'form.opt2': `Speciality — natural`, 'form.opt3': `Honey / Anaerobic lots`, 'form.opt4': `Commercial volume`, 'form.opt5': `Certified / organic`,
+      'form.volumeLabel': `Volume & details`, 'form.volumePlaceholder': `Origin, profile, bags, shipping window…`, 'form.send': `Send request`, 'form.note': `Or message us on WhatsApp for a faster reply.`, 'form.sent': `Thanks — opening WhatsApp with your details ready to send.`,
+      'footer.blurb': `Operator of washing stations in Yirgacheffe (Konga, Gedeb, Aricha) and Guji — organically certified, fully traceable Ethiopian specialty coffee.`,
+      'footer.ourCoffeeH': `Our coffee`, 'footer.fSpeciality': `Speciality`, 'footer.fCommercial': `Commercial`, 'footer.fCertified': `Certified`, 'footer.fProcessing': `Processing`,
+      'footer.companyH': `Company`, 'footer.about': `About us`, 'footer.source': `Coffee source`, 'footer.whyLink': `Why Boledu`, 'footer.social': `Social responsibility`, 'footer.contactH': `Contact`, 'footer.rights': `All rights reserved.`
+    },
+    es: {
+      'meta.title': `Boledu Coffee — Café especial etíope, de la estación de lavado a la tostadería`,
+      'aria.lang': `Seleccionar idioma`, 'aria.menuOpen': `Abrir menú`, 'aria.menuClose': `Cerrar menú`, 'aria.whatsapp': `Chatea por WhatsApp`,
+      'nav.company': `Empresa`, 'nav.coffee': `Nuestro café`, 'nav.processing': `Procesos`, 'nav.origins': `Orígenes`, 'nav.contact': `Contacto`,
+      'cta.order': `Pedir cosecha 24/25`, 'cta.orderFull': `Pedir cosecha 2024/2025`, 'common.discover': `Descubre nuestro café`,
+      'hero.h1': `De nuestras estaciones de&nbsp;lavado <em>a tu tostadería</em>`,
+      'hero.p': `Café especial etíope, totalmente trazable y con certificación orgánica — lavado y natural, procesado en nuestras propias estaciones y enviado directamente.`,
+      'hero.scroll': `Desliza`,
+      'who.eyebrow': `Quiénes somos`, 'who.h2': `Cultivado en Etiopía. Cuidado por Boledu.`,
+      'who.p1': `Boledu Coffee opera estaciones de lavado en el distrito de Yirgacheffe — Konga, Gedeb y Aricha — y en Guji. Construimos cadenas de suministro integradas con nuestros caficultores asociados en ambos distritos, manteniendo la certificación orgánica y la trazabilidad total en cada paso.`,
+      'who.p2': `Fundada en 2018 por dos amigos, la empresa colabora con los agricultores para mostrar lo mejor de su café — llevando una preparación moderna y una gestión de calidad a las regiones donde trabajamos, y exportando lotes lavados y naturales directamente desde la estación de lavado al mercado internacional.`,
+      'who.role': `Cofundador`, 'who.years': `Años`,
+      'stats.years': `Años produciendo y exportando lotes trazables`, 'stats.districts': `Distritos — Yirgacheffe y Guji`, 'stats.stations': `Estaciones de lavado propias`, 'stats.certified': `Con certificación orgánica y trazable`,
+      'why.eyebrow': `Por qué Boledu`, 'why.h2': `Razones por las que los tostadores nos eligen`, 'why.lead': `Del terroir a la trazabilidad — lo que hace que un lote de Boledu merezca especificarse.`,
+      'why.i1': `Excelencia premiada`, 'why.i2': `El mejor terroir cafetero de Etiopía`, 'why.i3': `Técnicas de proceso innovadoras`, 'why.i4': `Trazabilidad total y certificación orgánica`, 'why.i5': `Estaciones de lavado propias`, 'why.i6': `Profesionales del café con experiencia`,
+      'coffee.eyebrow': `Nuestro café`, 'coffee.h2': `Tres grados, un mismo estándar`, 'coffee.lead': `Cada oferta ofrece la misma trazabilidad y cuidado — elige el grado que se ajuste a tu programa.`,
+      'coffee.tagTop': `Mejores lotes`, 'coffee.tagVolume': `Volumen`, 'coffee.tagCertified': `Certificado`,
+      'coffee.c1title': `Café de especialidad`, 'coffee.c1desc': `Lotes con alta puntuación de taza de microzonas selectas de Yirgacheffe y Guji — lavados y naturales, preparados para tostadores que especifican por lote.`, 'coffee.c1cta': `Solicitar muestras`,
+      'coffee.c2title': `Café comercial`, 'coffee.c2desc': `Café verde consistente y fiable a gran escala — la misma disciplina de cadena de suministro, pensada para contratos mayores y recurrentes.`, 'coffee.c2cta': `Consultar volumen`,
+      'coffee.c3title': `Café certificado`, 'coffee.c3desc': `Lotes con certificación orgánica y trazabilidad documentada desde la estación de lavado hasta el envío — documentación lista para tus compradores.`, 'coffee.c3cta': `Ver certificaciones`,
+      'proc.eyebrow': `Nuestros procesos`, 'proc.h2': `Cuatro formas de procesar`, 'proc.lead': `Cada método se realiza en nuestras propias estaciones de lavado en Yirgacheffe y Guji — cada uno da forma a una taza distinta.`,
+      'proc.washed': `Lavado`, 'proc.washedDesc': `El proceso de café lavado comienza con la recolección de cerezas maduras, que se despulpan mecánicamente para retirar la piel exterior. Los granos cubiertos de mucílago pegajoso fermentan en tanques de agua (12–48 horas) para descomponer los residuos. Tras la fermentación, se lavan para eliminar los restos de fruta. Luego los granos se secan en camas elevadas o patios hasta que la humedad alcanza el 10–12 %. Por último, se descascarillan para retirar la capa de pergamino y se pulen para su clasificación. Este método produce cafés brillantes y ácidos, de sabor limpio y nítido — habituales en Colombia y Etiopía — pero requiere bastante agua en comparación con otras técnicas.`,
+      'proc.natural': `Natural`, 'proc.naturalDesc': `El proceso natural, también llamado método seco, consiste en secar al sol las cerezas de café enteras recién recolectadas. Las cerezas se extienden en camas elevadas o patios y se voltean con regularidad para asegurar un secado uniforme, que puede tardar de 2 a 4 semanas. A medida que la fruta fermenta y se deshidrata, los azúcares impregnan los granos, creando un perfil dulce y afrutado. Esta técnica, eficiente en agua y común en regiones áridas como Etiopía y Brasil, produce cafés con cuerpo intenso y notas complejas. Sin embargo, un secado irregular puede provocar moho o sobrefermentación, lo que exige un control minucioso para preservar la calidad.`,
+      'proc.honey': `Honey`, 'proc.honeyDesc': `Las cerezas despulpadas conservan el dulce mucílago ("honey") durante el secado al sol en camas elevadas. Esta capa permite una fermentación controlada que realza el dulzor. Las categorías (amarillo, rojo, negro) reflejan la cantidad de mucílago y la duración del secado — el negro conserva más y seca más tiempo. Esta técnica híbrida produce sabores distintivos usando menos agua que el proceso totalmente lavado. Exige una vigilancia constante durante el secado prolongado para evitar moho o sobrefermentación. Este equilibrio crea perfiles de taza complejos, muy valorados en el mercado de especialidad por su carácter innovador y a la vez tradicional.`,
+      'proc.anaerobic': `Anaeróbico`, 'proc.anaerobicDesc': `El proceso anaeróbico fermenta las cerezas en tanques sellados y sin oxígeno (normalmente de acero inoxidable). Al eliminar el oxígeno, prosperan microbios únicos que ralentizan la fermentación y desarrollan compuestos complejos como ésteres y ácidos. Esto crea sabores afrutados, vinosos o florales característicos, con mayor dulzor y acidez. Los productores controlan meticulosamente la temperatura, el pH y la duración (de días a semanas) para moldear las características del grano. Muy popular en el café de especialidad, este método innovador apuesta por la experimentación y da como resultado tazas audaces y llenas de matices, distintas de los procesos tradicionales.`,
+      'origins.eyebrow': `Origen del café`, 'origins.h2': `De dónde viene`, 'origins.lead': `Relaciones directas en las regiones cafetaleras más célebres de Etiopía — cada una con su propia firma en la taza.`,
+      'origins.yirgDesc': `Konga, Gedeb y Aricha — estaciones de lavado de gran altitud que producen cafés delicados, florales y con carácter a té.`,
+      'origins.gujiDesc': `Nuestra propia estación de lavado en la zona de Guji — naturales vibrantes y lavados limpios con fruta profunda y en capas.`,
+      'origins.sidamoDesc': `El clásico carácter del sur de Etiopía — redondo, dulce y accesible, tanto en perfiles lavados como naturales.`,
+      'taste.jasmine': `Jazmín`, 'taste.citrus': `Cítricos`, 'taste.bergamot': `Bergamota`, 'taste.berry': `Frutos rojos`, 'taste.stonefruit': `Fruta de hueso`, 'taste.cocoa': `Cacao`, 'taste.caramel': `Caramelo`, 'taste.lemon': `Limón`, 'taste.floral': `Floral`,
+      'contact.eyebrow': `Pedido y contacto`, 'contact.h2': `Pedir cosecha 2024/2025`, 'contact.lead': `Cuéntanos el perfil, el grado y el volumen que buscas. Te enviaremos la disponibilidad actual y te ofreceremos muestras directamente desde la estación de lavado.`,
+      'contact.lblOffice': `Oficina`, 'contact.office': `Bole sub‑city, cerca del Shapire Addis Hotel — Dat Tower, 2.ª planta, Adís Abeba, Etiopía`, 'contact.lblPhone': `Teléfono`, 'contact.lblEmail': `Correo`, 'contact.lblWhatsapp': `WhatsApp`,
+      'form.h3': `Solicita una oferta`, 'form.sub': `Te responderemos con la disponibilidad actual de la cosecha 2024/2025.`, 'form.nameLabel': `Nombre / Empresa`, 'form.namePlaceholder': `Nombre de la tostadería`, 'form.emailLabel': `Correo electrónico`, 'form.emailPlaceholder': `tu@empresa.com`, 'form.interestLabel': `Interesado en`,
+      'form.opt1': `Especialidad — lavado`, 'form.opt2': `Especialidad — natural`, 'form.opt3': `Lotes honey / anaeróbicos`, 'form.opt4': `Volumen comercial`, 'form.opt5': `Certificado / orgánico`,
+      'form.volumeLabel': `Volumen y detalles`, 'form.volumePlaceholder': `Origen, perfil, sacos, ventana de envío…`, 'form.send': `Enviar solicitud`, 'form.note': `O escríbenos por WhatsApp para una respuesta más rápida.`, 'form.sent': `Gracias — abriendo WhatsApp con tus datos listos para enviar.`,
+      'footer.blurb': `Operador de estaciones de lavado en Yirgacheffe (Konga, Gedeb, Aricha) y Guji — café especial etíope con certificación orgánica y totalmente trazable.`,
+      'footer.ourCoffeeH': `Nuestro café`, 'footer.fSpeciality': `Especialidad`, 'footer.fCommercial': `Comercial`, 'footer.fCertified': `Certificado`, 'footer.fProcessing': `Procesos`,
+      'footer.companyH': `Empresa`, 'footer.about': `Sobre nosotros`, 'footer.source': `Origen del café`, 'footer.whyLink': `Por qué Boledu`, 'footer.social': `Responsabilidad social`, 'footer.contactH': `Contacto`, 'footer.rights': `Todos los derechos reservados.`
+    },
+    fr: {
+      'meta.title': `Boledu Coffee — Café de spécialité éthiopien, de la station de lavage à la torréfaction`,
+      'aria.lang': `Choisir la langue`, 'aria.menuOpen': `Ouvrir le menu`, 'aria.menuClose': `Fermer le menu`, 'aria.whatsapp': `Discuter sur WhatsApp`,
+      'nav.company': `Entreprise`, 'nav.coffee': `Notre café`, 'nav.processing': `Procédés`, 'nav.origins': `Origines`, 'nav.contact': `Contact`,
+      'cta.order': `Commander récolte 24/25`, 'cta.orderFull': `Commander récolte 2024/2025`, 'common.discover': `Découvrez notre café`,
+      'hero.h1': `De nos stations de&nbsp;lavage <em>à votre torréfaction</em>`,
+      'hero.p': `Café de spécialité éthiopien, entièrement traçable et certifié biologique — lavé et naturel, transformé dans nos propres stations et expédié en direct.`,
+      'hero.scroll': `Défiler`,
+      'who.eyebrow': `Qui sommes-nous`, 'who.h2': `Cultivé en Éthiopie. Accompagné par Boledu.`,
+      'who.p1': `Boledu Coffee exploite des stations de lavage dans le district de Yirgacheffe — Konga, Gedeb et Aricha — et à Guji. Nous construisons des chaînes d'approvisionnement intégrées avec nos producteurs partenaires dans les deux districts, en conservant la certification biologique et une traçabilité totale à chaque étape.`,
+      'who.p2': `Fondée en 2018 par deux amis, l'entreprise collabore avec les producteurs pour révéler le meilleur de leur café — en apportant une préparation moderne et une gestion de la qualité dans les régions où nous travaillons, puis en exportant des lots lavés et naturels directement de la station de lavage vers le marché international.`,
+      'who.role': `Cofondateur`, 'who.years': `Ans`,
+      'stats.years': `Ans à produire et exporter des lots traçables`, 'stats.districts': `Districts — Yirgacheffe et Guji`, 'stats.stations': `Stations de lavage en propre`, 'stats.certified': `Certifié biologique et traçable`,
+      'why.eyebrow': `Pourquoi Boledu`, 'why.h2': `Pourquoi les torréfacteurs nous choisissent`, 'why.lead': `Du terroir à la traçabilité — ce qui rend un lot Boledu digne d'être spécifié.`,
+      'why.i1': `Une excellence primée`, 'why.i2': `Le meilleur terroir caféier d'Éthiopie`, 'why.i3': `Des techniques de traitement innovantes`, 'why.i4': `Traçabilité totale et certification biologique`, 'why.i5': `Stations de lavage en propre`, 'why.i6': `Des professionnels du café expérimentés`,
+      'coffee.eyebrow': `Notre café`, 'coffee.h2': `Trois qualités, un seul standard`, 'coffee.lead': `Chaque offre bénéficie de la même traçabilité et du même soin — choisissez la qualité adaptée à votre programme.`,
+      'coffee.tagTop': `Meilleurs lots`, 'coffee.tagVolume': `Volume`, 'coffee.tagCertified': `Certifié`,
+      'coffee.c1title': `Café de spécialité`, 'coffee.c1desc': `Lots à haute note de tasse issus de micro-zones sélectionnées de Yirgacheffe et Guji — lavés et naturels, préparés pour les torréfacteurs qui spécifient par lot.`, 'coffee.c1cta': `Demander des échantillons`,
+      'coffee.c2title': `Café commercial`, 'coffee.c2desc': `Un café vert régulier et fiable à grande échelle — la même rigueur de chaîne d'approvisionnement, conçue pour des contrats plus importants et récurrents.`, 'coffee.c2cta': `Discuter du volume`,
+      'coffee.c3title': `Café certifié`, 'coffee.c3desc': `Lots certifiés biologiques avec une traçabilité documentée de la station de lavage à l'expédition — les documents prêts pour vos acheteurs.`, 'coffee.c3cta': `Voir les certifications`,
+      'proc.eyebrow': `Nos procédés`, 'proc.h2': `Quatre façons de traiter`, 'proc.lead': `Chaque méthode est réalisée dans nos propres stations de lavage à Yirgacheffe et Guji — chacune façonne une tasse distincte.`,
+      'proc.washed': `Lavé`, 'proc.washedDesc': `Le procédé lavé commence par la récolte des cerises mûres, dépulpées mécaniquement pour retirer la peau extérieure. Les grains recouverts de mucilage collant fermentent dans des cuves d'eau (12 à 48 heures) pour décomposer les résidus. Après la fermentation, ils sont lavés pour éliminer les restes de fruit. Les grains sèchent ensuite sur des lits surélevés ou des patios jusqu'à ce que l'humidité atteigne 10 à 12 %. Enfin, ils sont décortiqués pour retirer la parche et polis avant le tri. Cette méthode donne des cafés vifs et acidulés, aux saveurs nettes et propres — courants en Colombie et en Éthiopie — mais nécessite beaucoup d'eau par rapport aux autres techniques.`,
+      'proc.natural': `Naturel`, 'proc.naturalDesc': `Le procédé naturel, aussi appelé méthode sèche, consiste à faire sécher au soleil les cerises de café entières fraîchement récoltées. Les cerises sont étalées sur des lits surélevés ou des patios et régulièrement retournées pour assurer un séchage homogène, qui peut prendre 2 à 4 semaines. À mesure que le fruit fermente et se ratatine, les sucres imprègnent les grains, créant un profil doux et fruité. Cette technique, économe en eau et courante dans les régions arides comme l'Éthiopie et le Brésil, donne des cafés au corps ample et aux notes complexes. Toutefois, un séchage irrégulier peut entraîner moisissure ou surfermentation, exigeant une surveillance méticuleuse pour préserver la qualité.`,
+      'proc.honey': `Honey`, 'proc.honeyDesc': `Les cerises dépulpées conservent le mucilage sucré ("honey") pendant le séchage au soleil sur lits surélevés. Cette couche permet une fermentation contrôlée qui renforce la douceur. Les catégories (jaune, rouge, noir) reflètent le niveau de mucilage et la durée de séchage — le noir en conserve le plus et sèche le plus longtemps. Cette technique hybride donne des saveurs distinctives tout en utilisant moins d'eau que le procédé entièrement lavé. Elle exige une surveillance attentive pendant le long séchage pour éviter moisissure ou surfermentation. Cet équilibre crée des profils de tasse complexes, prisés sur le marché de la spécialité pour leur caractère à la fois innovant et traditionnel.`,
+      'proc.anaerobic': `Anaérobie`, 'proc.anaerobicDesc': `Le procédé anaérobie fait fermenter les cerises dans des cuves scellées et sans oxygène (généralement en acier inoxydable). En supprimant l'oxygène, des micro-organismes uniques se développent, ralentissant la fermentation pour créer des composés complexes comme des esters et des acides. Cela produit des saveurs fruitées, vineuses ou florales distinctes, avec une douceur et une acidité accrues. Les producteurs contrôlent minutieusement la température, le pH et la durée (de quelques jours à quelques semaines) pour façonner les caractéristiques du grain. Très prisée dans le café de spécialité, cette méthode innovante mise sur l'expérimentation et donne des tasses audacieuses et nuancées, différentes des procédés traditionnels.`,
+      'origins.eyebrow': `Origine du café`, 'origins.h2': `D'où il vient`, 'origins.lead': `Des relations directes dans les régions productrices les plus célèbres d'Éthiopie — chacune avec sa propre signature en tasse.`,
+      'origins.yirgDesc': `Konga, Gedeb et Aricha — des stations de lavage d'altitude produisant des cafés délicats, floraux et aux notes de thé.`,
+      'origins.gujiDesc': `Notre propre station de lavage dans la zone de Guji — des naturels vibrants et des lavés nets, au fruit profond et en couches.`,
+      'origins.sidamoDesc': `Le caractère classique du sud de l'Éthiopie — rond, doux et accessible, en profils lavés comme naturels.`,
+      'taste.jasmine': `Jasmin`, 'taste.citrus': `Agrumes`, 'taste.bergamot': `Bergamote`, 'taste.berry': `Fruits rouges`, 'taste.stonefruit': `Fruits à noyau`, 'taste.cocoa': `Cacao`, 'taste.caramel': `Caramel`, 'taste.lemon': `Citron`, 'taste.floral': `Floral`,
+      'contact.eyebrow': `Commande et contact`, 'contact.h2': `Commander récolte 2024/2025`, 'contact.lead': `Indiquez-nous le profil, la qualité et le volume souhaités. Nous vous enverrons la disponibilité actuelle et vous proposerons des échantillons directement de la station de lavage.`,
+      'contact.lblOffice': `Bureau`, 'contact.office': `Bole sub‑city, près du Shapire Addis Hotel — Dat Tower, 2e étage, Addis-Abeba, Éthiopie`, 'contact.lblPhone': `Téléphone`, 'contact.lblEmail': `E-mail`, 'contact.lblWhatsapp': `WhatsApp`,
+      'form.h3': `Demander une offre`, 'form.sub': `Nous vous répondrons avec la disponibilité actuelle de la récolte 2024/2025.`, 'form.nameLabel': `Nom / Entreprise`, 'form.namePlaceholder': `Nom de la torréfaction`, 'form.emailLabel': `E-mail`, 'form.emailPlaceholder': `vous@entreprise.com`, 'form.interestLabel': `Intéressé par`,
+      'form.opt1': `Spécialité — lavé`, 'form.opt2': `Spécialité — naturel`, 'form.opt3': `Lots honey / anaérobie`, 'form.opt4': `Volume commercial`, 'form.opt5': `Certifié / biologique`,
+      'form.volumeLabel': `Volume et détails`, 'form.volumePlaceholder': `Origine, profil, sacs, fenêtre d'expédition…`, 'form.send': `Envoyer la demande`, 'form.note': `Ou écrivez-nous sur WhatsApp pour une réponse plus rapide.`, 'form.sent': `Merci — ouverture de WhatsApp avec vos informations prêtes à envoyer.`,
+      'footer.blurb': `Exploitant de stations de lavage à Yirgacheffe (Konga, Gedeb, Aricha) et Guji — café de spécialité éthiopien certifié biologique et entièrement traçable.`,
+      'footer.ourCoffeeH': `Notre café`, 'footer.fSpeciality': `Spécialité`, 'footer.fCommercial': `Commercial`, 'footer.fCertified': `Certifié`, 'footer.fProcessing': `Procédés`,
+      'footer.companyH': `Entreprise`, 'footer.about': `À propos`, 'footer.source': `Origine du café`, 'footer.whyLink': `Pourquoi Boledu`, 'footer.social': `Responsabilité sociale`, 'footer.contactH': `Contact`, 'footer.rights': `Tous droits réservés.`
+    },
+    de: {
+      'meta.title': `Boledu Coffee — Äthiopischer Spezialitätenkaffee, von der Waschstation zur Rösterei`,
+      'aria.lang': `Sprache wählen`, 'aria.menuOpen': `Menü öffnen`, 'aria.menuClose': `Menü schließen`, 'aria.whatsapp': `Auf WhatsApp chatten`,
+      'nav.company': `Unternehmen`, 'nav.coffee': `Unser Kaffee`, 'nav.processing': `Aufbereitung`, 'nav.origins': `Herkunft`, 'nav.contact': `Kontakt`,
+      'cta.order': `Ernte 24/25 bestellen`, 'cta.orderFull': `Ernte 2024/2025 bestellen`, 'common.discover': `Entdecken Sie unseren Kaffee`,
+      'hero.h1': `Von unseren&nbsp;Waschstationen <em>zu Ihrer Rösterei</em>`,
+      'hero.p': `Vollständig rückverfolgbarer, biozertifizierter äthiopischer Spezialitätenkaffee — gewaschen und natural, in eigenen Stationen aufbereitet und direkt versandt.`,
+      'hero.scroll': `Scrollen`,
+      'who.eyebrow': `Wer wir sind`, 'who.h2': `Angebaut in Äthiopien. Betreut von Boledu.`,
+      'who.p1': `Boledu Coffee betreibt Waschstationen im Distrikt Yirgacheffe — Konga, Gedeb und Aricha — sowie in Guji. Wir bauen integrierte Lieferketten mit unseren Partnerbauern in beiden Distrikten auf, bleiben biozertifiziert und wahren in jedem Schritt die volle Rückverfolgbarkeit.`,
+      'who.p2': `2018 von zwei Freunden gegründet, arbeitet das Unternehmen mit den Bauern zusammen, um das Beste aus ihrem Kaffee zu zeigen — mit moderner Aufbereitung und Qualitätsmanagement in den Regionen, in denen wir tätig sind, und exportiert gewaschene und naturale Lots direkt von der Waschstation auf den internationalen Markt.`,
+      'who.role': `Mitgründer`, 'who.years': `Jahre`,
+      'stats.years': `Jahre Produktion und Export rückverfolgbarer Lots`, 'stats.districts': `Distrikte — Yirgacheffe und Guji`, 'stats.stations': `Eigene Waschstationen`, 'stats.certified': `Biozertifiziert und rückverfolgbar`,
+      'why.eyebrow': `Warum Boledu`, 'why.h2': `Warum Röstereien uns wählen`, 'why.lead': `Vom Terroir bis zur Rückverfolgbarkeit — was ein Boledu-Lot wert macht, spezifiziert zu werden.`,
+      'why.i1': `Preisgekrönte Exzellenz`, 'why.i2': `Äthiopiens erstklassiges Kaffee-Terroir`, 'why.i3': `Innovative Aufbereitungstechniken`, 'why.i4': `Volle Rückverfolgbarkeit und Bio-Zertifizierung`, 'why.i5': `Eigene Waschstationen`, 'why.i6': `Erfahrene Kaffee-Profis`,
+      'coffee.eyebrow': `Unser Kaffee`, 'coffee.h2': `Drei Güteklassen, ein Standard`, 'coffee.lead': `Jedes Angebot bietet dieselbe Rückverfolgbarkeit und Sorgfalt — wählen Sie die Güteklasse, die zu Ihrem Programm passt.`,
+      'coffee.tagTop': `Top-Lots`, 'coffee.tagVolume': `Menge`, 'coffee.tagCertified': `Zertifiziert`,
+      'coffee.c1title': `Spezialitätenkaffee`, 'coffee.c1desc': `Hoch bewertete Lots aus ausgewählten Mikrozonen in Yirgacheffe und Guji — gewaschen und natural, aufbereitet für Röster, die nach Lot spezifizieren.`, 'coffee.c1cta': `Muster anfragen`,
+      'coffee.c2title': `Handelskaffee`, 'coffee.c2desc': `Gleichbleibender, verlässlicher Rohkaffee in großem Maßstab — dieselbe Lieferketten-Disziplin, ausgelegt auf größere, wiederkehrende Verträge.`, 'coffee.c2cta': `Menge besprechen`,
+      'coffee.c3title': `Zertifizierter Kaffee`, 'coffee.c3desc': `Biozertifizierte Lots mit dokumentierter Rückverfolgbarkeit von der Waschstation bis zum Versand — Unterlagen bereit für Ihre Käufer.`, 'coffee.c3cta': `Zertifikate ansehen`,
+      'proc.eyebrow': `Unsere Aufbereitung`, 'proc.h2': `Vier Wege der Aufbereitung`, 'proc.lead': `Jede Methode erfolgt in unseren eigenen Waschstationen in Yirgacheffe und Guji — jede formt eine eigene Tasse.`,
+      'proc.washed': `Gewaschen`, 'proc.washedDesc': `Die gewaschene Aufbereitung beginnt mit der Ernte reifer Kirschen, die maschinell entpulpt werden, um die äußere Haut zu entfernen. Die von klebrigem Mucilage überzogenen Bohnen fermentieren in Wassertanks (12–48 Stunden), um Rückstände abzubauen. Nach der Fermentation werden sie gewaschen, um Fruchtreste zu entfernen. Anschließend trocknen die Bohnen auf Hochbeeten oder Patios, bis die Feuchtigkeit 10–12 % erreicht. Zuletzt werden sie geschält, um die Pergamentschicht zu entfernen, und für die Sortierung poliert. Diese Methode ergibt lebendige, säurebetonte Kaffees mit klarem, sauberem Geschmack — verbreitet in Kolumbien und Äthiopien — benötigt aber im Vergleich zu anderen Techniken viel Wasser.`,
+      'proc.natural': `Natural`, 'proc.naturalDesc': `Die natürliche Aufbereitung, auch Trockenmethode genannt, trocknet die frisch geernteten Kaffeekirschen ganz in der Sonne. Die Kirschen werden auf Hochbeeten oder Patios ausgebreitet und regelmäßig gewendet, um eine gleichmäßige Trocknung sicherzustellen, die 2 bis 4 Wochen dauern kann. Während die Frucht fermentiert und schrumpft, dringen die Zucker in die Bohnen ein und schaffen ein süßes, fruchtiges Profil. Diese wassersparende Technik, verbreitet in trockenen Regionen wie Äthiopien und Brasilien, ergibt Kaffees mit kräftigem Körper und komplexen Noten. Ungleichmäßige Trocknung kann jedoch Schimmel oder Überfermentation verursachen und erfordert sorgfältige Überwachung, um die Qualität zu bewahren.`,
+      'proc.honey': `Honey`, 'proc.honeyDesc': `Entpulpte Kirschen behalten das süße Mucilage ("Honey") während der Sonnentrocknung auf Hochbeeten. Diese Schicht ermöglicht eine kontrollierte Fermentation und verstärkt die Süße. Die Kategorien (gelb, rot, schwarz) spiegeln Mucilage-Menge und Trocknungsdauer wider — Schwarz behält am meisten und trocknet am längsten. Die Hybridtechnik erzeugt unverwechselbare Aromen und benötigt weniger Wasser als die vollständig gewaschene Aufbereitung. Sie verlangt während der langen Trocknung wachsame Kontrolle, um Schimmel oder Überfermentation zu vermeiden. Diese Balance schafft komplexe Tassenprofile, die auf dem Spezialitätenmarkt für ihren zugleich innovativen und traditionellen Charakter geschätzt werden.`,
+      'proc.anaerobic': `Anaerob`, 'proc.anaerobicDesc': `Bei der anaeroben Aufbereitung fermentieren die Kirschen in versiegelten, sauerstofffreien Tanks (meist aus Edelstahl). Durch den Ausschluss von Sauerstoff gedeihen besondere Mikroben, die die Fermentation verlangsamen und komplexe Verbindungen wie Ester und Säuren bilden. So entstehen unverwechselbare fruchtige, weinartige oder florale Aromen mit erhöhter Süße und Säure. Die Produzenten steuern Temperatur, pH-Wert und Dauer (Tage bis Wochen) sorgfältig, um die Eigenschaften der Bohne zu formen. In der Spezialität sehr beliebt, setzt diese innovative Methode auf Experimentierfreude und ergibt kräftige, nuancierte Tassen, die sich von traditionellen Verfahren abheben.`,
+      'origins.eyebrow': `Kaffee-Herkunft`, 'origins.h2': `Woher er kommt`, 'origins.lead': `Direkte Beziehungen in Äthiopiens berühmtesten Anbauregionen — jede mit ihrer eigenen Signatur in der Tasse.`,
+      'origins.yirgDesc': `Konga, Gedeb und Aricha — Hochland-Waschstationen, die zarte, florale, teeartige Kaffees hervorbringen.`,
+      'origins.gujiDesc': `Unsere eigene Waschstation in der Zone Guji — lebendige Naturals und saubere gewaschene Lots mit tiefer, vielschichtiger Frucht.`,
+      'origins.sidamoDesc': `Der klassische südäthiopische Charakter — rund, süß und zugänglich, sowohl gewaschen als auch natural.`,
+      'taste.jasmine': `Jasmin`, 'taste.citrus': `Zitrus`, 'taste.bergamot': `Bergamotte`, 'taste.berry': `Beere`, 'taste.stonefruit': `Steinobst`, 'taste.cocoa': `Kakao`, 'taste.caramel': `Karamell`, 'taste.lemon': `Zitrone`, 'taste.floral': `Blumig`,
+      'contact.eyebrow': `Bestellung und Kontakt`, 'contact.h2': `Ernte 2024/2025 bestellen`, 'contact.lead': `Sagen Sie uns Profil, Güteklasse und Menge, die Sie suchen. Wir senden Ihnen die aktuelle Verfügbarkeit und bieten Muster direkt von der Waschstation an.`,
+      'contact.lblOffice': `Büro`, 'contact.office': `Bole sub‑city, nahe Shapire Addis Hotel — Dat Tower, 2. Etage, Addis Abeba, Äthiopien`, 'contact.lblPhone': `Telefon`, 'contact.lblEmail': `E-Mail`, 'contact.lblWhatsapp': `WhatsApp`,
+      'form.h3': `Angebot anfragen`, 'form.sub': `Wir antworten mit der aktuellen Verfügbarkeit der Ernte 2024/2025.`, 'form.nameLabel': `Name / Unternehmen`, 'form.namePlaceholder': `Name der Rösterei`, 'form.emailLabel': `E-Mail`, 'form.emailPlaceholder': `sie@unternehmen.com`, 'form.interestLabel': `Interesse an`,
+      'form.opt1': `Spezialität — gewaschen`, 'form.opt2': `Spezialität — natural`, 'form.opt3': `Honey- / Anaerob-Lots`, 'form.opt4': `Handelsmenge`, 'form.opt5': `Zertifiziert / bio`,
+      'form.volumeLabel': `Menge und Details`, 'form.volumePlaceholder': `Herkunft, Profil, Säcke, Versandfenster…`, 'form.send': `Anfrage senden`, 'form.note': `Oder schreiben Sie uns auf WhatsApp für eine schnellere Antwort.`, 'form.sent': `Danke — WhatsApp wird mit Ihren Angaben zum Senden geöffnet.`,
+      'footer.blurb': `Betreiber von Waschstationen in Yirgacheffe (Konga, Gedeb, Aricha) und Guji — biozertifizierter, vollständig rückverfolgbarer äthiopischer Spezialitätenkaffee.`,
+      'footer.ourCoffeeH': `Unser Kaffee`, 'footer.fSpeciality': `Spezialität`, 'footer.fCommercial': `Handel`, 'footer.fCertified': `Zertifiziert`, 'footer.fProcessing': `Aufbereitung`,
+      'footer.companyH': `Unternehmen`, 'footer.about': `Über uns`, 'footer.source': `Kaffee-Herkunft`, 'footer.whyLink': `Warum Boledu`, 'footer.social': `Soziale Verantwortung`, 'footer.contactH': `Kontakt`, 'footer.rights': `Alle Rechte vorbehalten.`
+    }
+  };
+
+  const LANG_CODES = { en:'EN', es:'ES', fr:'FR', de:'DE' };
+
+  function applyI18n(lang){
+    const dict = I18N[lang] || I18N.en;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = dict[el.getAttribute('data-i18n')];
+      if(v == null) return;
+      if(v.indexOf('<') !== -1) el.innerHTML = v; else el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const v = dict[el.getAttribute('data-i18n-placeholder')];
+      if(v != null) el.setAttribute('placeholder', v);
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+      const v = dict[el.getAttribute('data-i18n-aria-label')];
+      if(v != null) el.setAttribute('aria-label', v);
+    });
+  }
+
+  const langWrap = document.getElementById('lang');
+  const langBtn  = document.getElementById('langBtn');
+  const langMenu = document.getElementById('langMenu');
+  const langCur  = langBtn.querySelector('.lang-cur');
+  const closeLangMenu = () => { langMenu.classList.remove('open'); langBtn.setAttribute('aria-expanded','false'); };
+
+  function setLang(lang, save){
+    if(!I18N[lang]) lang = 'en';
+    currentLang = lang;
+    applyI18n(lang);
+    langCur.textContent = LANG_CODES[lang];
+    langMenu.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.lang === lang)));
+    if(save){ try{ localStorage.setItem('boledu-lang', lang); }catch(e){} }
+  }
+
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = !langMenu.classList.contains('open');
+    langMenu.classList.toggle('open', willOpen);
+    langBtn.setAttribute('aria-expanded', String(willOpen));
+  });
+  langMenu.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => { setLang(b.dataset.lang, true); closeLangMenu(); });
+  });
+  document.addEventListener('click', (e) => { if(!langWrap.contains(e.target)) closeLangMenu(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLangMenu(); });
+
+  // initial language: saved choice → browser language → English
+  let savedLang = null;
+  try{ savedLang = localStorage.getItem('boledu-lang'); }catch(e){}
+  const browserLang = (navigator.language || 'en').slice(0,2).toLowerCase();
+  setLang(savedLang || (I18N[browserLang] ? browserLang : 'en'), false);
 </script>
 </body>
 </html>
