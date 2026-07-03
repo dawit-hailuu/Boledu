@@ -427,17 +427,17 @@
   /* ---------- language switcher ---------- */
   .lang{position:relative}
   .lang-btn{
-    display:inline-flex;align-items:center;gap:7px;cursor:pointer;
-    background:none;border:1px solid rgba(255,255,255,.4);border-radius:100px;
-    color:#fff;font-family:var(--sans);font-weight:600;font-size:.85rem;
-    padding:.5em .8em;line-height:1;transition:color .25s,border-color .25s,background .25s;
+    display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+    background:none;border:0;
+    color:rgba(255,255,255,.85);font-family:var(--sans);font-weight:500;font-size:.85rem;
+    padding:.5em .2em;line-height:1;transition:color .25s;
   }
-  .lang-btn:hover{background:rgba(255,255,255,.1)}
-  .lang-btn .globe{width:15px;height:15px}
-  .lang-btn .chev{width:11px;height:11px;transition:transform .3s;opacity:.8}
+  .lang-btn:hover{color:#fff}
+  .lang-btn .globe{width:15px;height:15px;opacity:.9}
+  .lang-btn .chev{width:11px;height:11px;transition:transform .3s;opacity:.75}
   .lang-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
-  header.scrolled .lang-btn{border-color:var(--line);color:var(--ink)}
-  header.scrolled .lang-btn:hover{background:rgba(20,81,47,.08)}
+  header.scrolled .lang-btn{color:var(--ink-soft)}
+  header.scrolled .lang-btn:hover{color:var(--ink)}
   .lang-menu{
     position:absolute;top:calc(100% + 10px);right:0;min-width:158px;z-index:120;
     background:var(--bone);border:1px solid var(--line);border-radius:14px;
