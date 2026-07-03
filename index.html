@@ -158,10 +158,10 @@
     background:var(--forest-deep);color:rgba(255,255,255,.92);
     border-block:1px solid var(--line-light);
     overflow:hidden;white-space:nowrap;
-    padding-block:.85em;font-family:var(--mono);
+    padding-block:.85em;font-family:ui-monospace,"Cascadia Code","SFMono-Regular",Consolas,monospace;
     font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
   }
-  .marquee-track{display:inline-flex;gap:0;animation:scroll 38s linear infinite}
+  .marquee-track{display:inline-flex;gap:0;animation:scroll 38s linear infinite;will-change:transform}
   .marquee-track span{padding-inline:1.6em;display:inline-flex;align-items:center;gap:1.6em}
   .marquee-track span::after{content:"✦";color:var(--leaf);font-size:.7em}
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
