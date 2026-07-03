@@ -162,10 +162,12 @@
     font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
   }
   .marquee-track{display:inline-flex;gap:0;animation:scroll 38s linear infinite;will-change:transform}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-set{display:inline-flex;gap:0}
   .marquee-track span{padding-inline:1.6em;display:inline-flex;align-items:center;gap:1.6em}
   .marquee-track span::after{content:"✦";color:var(--leaf);font-size:.7em}
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none!important}}
 
   /* ---------- header ---------- */
   header{
@@ -542,12 +544,70 @@
 </section>
 
 <!-- origins marquee (signature) -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Yirgacheffe</span><span>Guji</span><span>Sidamo</span><span>Konga</span><span>Gedeb</span><span>Aricha</span>
-    <span>Yirgacheffe</span><span>Guji</span><span>Sidamo</span><span>Konga</span><span>Gedeb</span><span>Aricha</span>
+<div class="marquee" aria-hidden="true" id="originsMarquee">
+  <div class="marquee-track" id="originsTrack">
+    <div class="marquee-set">
+      <span>Yirgacheffe</span><span>Guji</span><span>Sidamo</span><span>Konga</span><span>Gedeb</span><span>Aricha</span>
+    </div>
   </div>
 </div>
+<script>
+(function(){
+  const container = document.getElementById('originsMarquee');
+  const track = document.getElementById('originsTrack');
+  const baseSet = track && track.querySelector('.marquee-set');
+  if(!container || !track || !baseSet) return;
+
+  const BASE_DURATION = 38;           // seconds — matches the original feel (2 sets over 38s)
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function rebuild(){
+    track.style.animation = 'none';
+    track.querySelectorAll('.marquee-set').forEach((el, i) => { if(i > 0) el.remove(); });
+
+    const containerWidth = container.clientWidth;
+    const setWidth = baseSet.getBoundingClientRect().width;
+    if(setWidth <= 0) return;
+
+    if(mq.matches){
+      // static fallback: clone just enough to cover the bar, no motion
+      let guard = 0;
+      while(track.getBoundingClientRect().width < containerWidth && guard++ < 50){
+        track.appendChild(baseSet.cloneNode(true));
+      }
+      track.style.animation = 'none';
+      return;
+    }
+
+    let copies = 1;
+    while((copies * setWidth < containerWidth * 2 || copies % 2 !== 0) && copies < 100){
+      track.appendChild(baseSet.cloneNode(true));
+      copies++;
+    }
+
+    const totalWidth = copies * setWidth;               // 2 * originalSetWidth => 38s baseline speed
+    const pxPerSecond = (2 * setWidth) / BASE_DURATION;
+    const scrollDistance = totalWidth / 2;               // translateX 0 -> -50%
+    const duration = scrollDistance / pxPerSecond;
+
+    // force reflow so the animation restarts cleanly with the new duration
+    void track.offsetWidth;
+    track.style.animation = `scroll ${duration}s linear infinite`;
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(rebuild, 150);
+  });
+
+  if(typeof mq.addEventListener === 'function') mq.addEventListener('change', rebuild);
+  else if(typeof mq.addListener === 'function') mq.addListener(rebuild);
+
+  window.addEventListener('load', rebuild);
+  rebuild();
+})();
+</script>
 
 <!-- ===== WHO WE ARE ===== -->
 <section class="on-dark" id="who">
